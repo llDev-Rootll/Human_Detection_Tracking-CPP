@@ -9,6 +9,6 @@ The initial design is as follows :
 
 <img alt="design" src="assets/design.gif" width="75%" />
 
-*Fig 1 :  System Concept of Operations*
+*Fig 1 :  High Level Arhitecture Design*
 
 ## Currently under development in the "development" branch [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/tree/development)
