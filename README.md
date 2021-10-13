@@ -1,5 +1,3 @@
-
-
 # Human_Detection_Tracking-CPP
 [![Build Status](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP.svg?branch=master)](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP)
 [![Coverage Status](https://coveralls.io/repos/github/llDev-Rootll/Human_Detection_Tracking-CPP/badge.svg?branch=master)](https://coveralls.io/github/llDev-Rootll/Human_Detection_Tracking-CPP?branch=master)
