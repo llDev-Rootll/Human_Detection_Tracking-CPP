@@ -5,7 +5,6 @@ vector<cv::Mat> HumanDetector::detection(cv::Net& net, cv::Mat& blob) {
 	return dummy;
 }
 
-
 vector<cv::Rect> HumanDetector::postProcess(cv::Mat& frame, const vector<cv::Mat>& outs) {
 	vector<cv::Rect> dummy;
 	return dummy;
