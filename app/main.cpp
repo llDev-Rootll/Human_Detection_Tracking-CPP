@@ -8,10 +8,13 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include <lib.hpp>
+#include "Robot.h"
+
+using std::cout;
+using std::endl;
 
 int main()
 {
-    dummy();
+    cout << "Human Detector and Tracker" << endl;
     return 0;
 }

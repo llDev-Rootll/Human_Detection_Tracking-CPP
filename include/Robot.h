@@ -26,5 +26,5 @@ class Robot {
     vector<double> transformToRobotFrame(Eigen::Matrix4f transformation_matrix, vector<Rect> bbox_coords, double pixel_to_meter, double area_to_depth);
  public:
     int detectHumans();
-    Robot(Eigen::Matrix4f transformation_matrix);
+    Robot();
 }

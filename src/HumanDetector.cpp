@@ -16,8 +16,8 @@
  * @param blob 
  * @return vector<cv::Mat> 
  */
-vector<cv::Mat> HumanDetector::detection(cv::Net& net, cv::Mat& blob) {
-	vector<cv::Mat> dummy;
+vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
+	vector<Mat> dummy;
 	return dummy;
 }
 /**
@@ -27,8 +27,8 @@ vector<cv::Mat> HumanDetector::detection(cv::Net& net, cv::Mat& blob) {
  * @param outs 
  * @return vector<cv::Rect> 
  */
-vector<cv::Rect> HumanDetector::postProcess(cv::Mat& frame, const vector<cv::Mat>& outs) {
-	vector<cv::Rect> dummy;
+vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
+	vector<Rect> dummy;
 	return dummy;
 }
 /**
@@ -43,6 +43,6 @@ vector<cv::Rect> HumanDetector::postProcess(cv::Mat& frame, const vector<cv::Mat
  * @param frame 
  * @return int 
  */
-int HumanDetector:: drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, cv::Mat& frame) {
+int HumanDetector::drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number) {
 	return 0;
 }

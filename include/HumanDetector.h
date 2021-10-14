@@ -10,12 +10,20 @@
  * 
  */
 #include<iostream>
+#include <vector>
 #include <opencv2/dnn.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
+#include <Eigen/Dense>
 
-using namespace std::string
-using namespace std::vector
+using std::vector;
+using std::string;
+using cv::Mat;
+using cv::Size;
+using cv::dnn::Net;
+using cv::dnn::readNetFromDarknet;
+using cv::Rect;
+using Eigen::Matrix4f;
 /**
  * @brief 
  * 
@@ -27,7 +35,7 @@ class HumanDetector{
     double confidence_threshold = 0.5;
     double nms_threshold = 0.4;
  public:
-    vector<cv::Mat> detection(cv::Net& net, cv::Mat& blob);
-    vector<cv::Rect> postProcess(cv::Mat& frame, const vector<cv::Mat>& outs);
-    int drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, cv::Mat& frame);
+    vector<Mat> detection(Net& net, Mat& blob);
+    vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
+    int drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number);
 }

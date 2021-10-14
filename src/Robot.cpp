@@ -14,7 +14,7 @@
  * 
  * @param transformation_matrix 
  */
-Robot::Robot(Eigen::Matrix4f transformation_matrix) {
+Robot::Robot() {
 	
 }
 /**
@@ -24,8 +24,8 @@ Robot::Robot(Eigen::Matrix4f transformation_matrix) {
  * @param net_input_shape 
  * @return vector<cv::Mat> 
  */
-vector<cv::Mat> Robot::prepFrame(vector<cv::Mat> frame, vector<int> net_input_shape) {
-	vector<cv::Mat> dummy;
+Mat Robot::prepFrame(Mat frame, vector<int> net_input_shape) {
+	Mat dummy;
 	return dummy;
 }
 /**
@@ -37,7 +37,7 @@ vector<cv::Mat> Robot::prepFrame(vector<cv::Mat> frame, vector<int> net_input_sh
  * @param area_to_depth 
  * @return vector<double> 
  */
-vector<double> Robot::transformToRobotFrame(Eigen::Matrix4f transformation_matrix, vector<Rect> bbox_coords, double pixel_to_meter, double area_to_depth) {
+vector<double> Robot::transformToRobotFrame(Matrix4f transformation_matrix, vector<Rect> bbox_coords, double pixel_to_meter, double area_to_depth) {
 	vector<double> dummy;
 	return dummy;
 }
