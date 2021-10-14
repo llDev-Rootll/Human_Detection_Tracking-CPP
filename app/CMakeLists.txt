@@ -1,4 +1,8 @@
 add_executable(shell-app main.cpp)
 include_directories(
-    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/include ${OpenCV_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR}
 )
+
+find_package(OpenCV REQUIRED)
+find_package(Eigen3 REQUIRED)
+target_link_libraries(shell-app PUBLIC detector_lib ${OpenCV_LIBS} ${EIGEN3_LIBS})
