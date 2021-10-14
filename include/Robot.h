@@ -9,8 +9,6 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include<iostream>
-#include <Eigen/Dense>
 #include "HumanDetector.h"
 /**
  * @brief 
