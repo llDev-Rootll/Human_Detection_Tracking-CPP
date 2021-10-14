@@ -30,8 +30,6 @@ using Eigen::Matrix4f;
  */
 class HumanDetector{
  private:
-    string path_to_model_weights = "yolov3.weights";
-    string path_to_model_congfiguration = "yolov3.config";
     double confidence_threshold = 0.5;
     double nms_threshold = 0.4;
  public:
