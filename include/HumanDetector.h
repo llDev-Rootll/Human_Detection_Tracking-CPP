@@ -36,4 +36,4 @@ class HumanDetector{
     vector<Mat> detection(Net& net, Mat& blob);
     vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
     int drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number);
-}
+};
