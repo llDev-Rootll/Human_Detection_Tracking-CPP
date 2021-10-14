@@ -16,5 +16,7 @@ using std::endl;
 int main()
 {
     cout << "Human Detector and Tracker" << endl;
+    Robot bot;
+    cout << "Checking detectHuman functionality: " << bot.detectHumans() << endl;
     return 0;
 }

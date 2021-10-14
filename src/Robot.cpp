@@ -47,5 +47,7 @@ vector<double> Robot::transformToRobotFrame(Matrix4f transformation_matrix, vect
  * @return int 
  */
 int Robot::detectHumans() {
+	// Load the network
+	Net net = readNetFromDarknet(path_to_model_congfiguration, path_to_model_weights);
 	return 0;
 }
