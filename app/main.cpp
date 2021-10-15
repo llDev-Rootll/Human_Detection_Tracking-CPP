@@ -17,6 +17,6 @@ int main()
 {
     cout << "Human Detector and Tracker" << endl;
     Robot bot;
-    cout << "Checking detectHuman functionality: " << bot.detectHumans() << endl;
+    cout << "Checking detectHuman functionality: "<< "\n" << bot.detectHumans() << endl;
     return 0;
 }
