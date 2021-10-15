@@ -25,8 +25,9 @@ Robot::Robot() {
  * @return vector<cv::Mat> 
  */
 Mat Robot::prepFrame(Mat frame, vector<int> net_input_shape) {
-	Mat dummy;
-	return dummy;
+	Mat blob_frame;
+	blob_frame = cv::dnn::blobFromImage(frame, 1/255.0, cv::Size(net_input_shape[1], net_input_shape[0]), cv::Scalar(0,0,0), true, false);
+	return blob_frame;
 }
 /**
  * @brief 
@@ -63,12 +64,14 @@ int Robot::detectHumans() {
 	static const string window_name = "Human Object Detector & Tracker";
 	cv::namedWindow(window_name, cv::WINDOW_NORMAL);
 	// Initialize the frame that will be analysed
-	Mat frame;
+	Mat frame, blob;
 	// Create a loop for capturing frames in real time
 	while (true) { 
+		// Take one frame from live feed for processing
 		cap >> frame;
+		blob = prepFrame(frame, net_input_shape);
 		// Show the frame captured on screen
-		cv::imshow(window_name, frame);
+		cv::imshow(window_name, blob);
 			// To get continuous live video until ctrl+C is pressed
 			if (cv::waitKey(1) == 27 ) {
 				break;
