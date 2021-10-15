@@ -16,7 +16,7 @@ using std::endl;
 int main()
 {
     cout << "Human Detector and Tracker" << endl;
-    Robot bot;
+    Robot bot(Matrix4f::Random());
     cout << "Checking detectHuman functionality: "<< "\n" << bot.detectHumans() << endl;
     return 0;
 }

@@ -24,6 +24,7 @@ using cv::dnn::Net;
 using cv::dnn::readNetFromDarknet;
 using cv::Rect;
 using Eigen::Matrix4f;
+using Eigen::MatrixXd;
 /**
  * @brief 
  * 

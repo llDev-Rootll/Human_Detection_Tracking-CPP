@@ -14,8 +14,8 @@
  * 
  * @param transformation_matrix 
  */
-Robot::Robot() {
-	
+Robot::Robot(Matrix4f transformation_matrix) {
+	transformation_cr = transformation_matrix;
 }
 /**
  * @brief 
@@ -71,7 +71,7 @@ int Robot::detectHumans() {
 		cap >> frame;
 		blob = prepFrame(frame, net_input_shape);
 		// Show the frame captured on screen
-		cv::imshow(window_name, blob);
+		cv::imshow(window_name, frame);
 			// To get continuous live video until ctrl+C is pressed
 			if (cv::waitKey(1) == 27 ) {
 				break;
