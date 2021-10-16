@@ -3,7 +3,7 @@ project(scratch)
 
 
 # Add project cmake modules to path.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 #set path for openCV and Eigen3
 find_package(OpenCV REQUIRED)
