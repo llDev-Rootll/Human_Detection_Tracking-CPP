@@ -17,7 +17,6 @@
  * @return vector<cv::Mat> 
  */
 vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
-	std::cout << "In HumanDetector: " << std::endl;
 	net.setInput(blob);
 	// Runs the forward pass to get output of the output layers
 	vector<Mat> outs;
@@ -31,9 +30,42 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
  * @param outs 
  * @return vector<cv::Rect> 
  */
-vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
-	vector<Rect> dummy;
-	return dummy;
+int HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
+	vector<int> classIds;
+	vector<float> confidences;
+	vector<Rect> boxes;
+	for (size_t i = 0; i < outs.size(); ++i) { 
+		// Scan through all the bounding boxes output from the network and keep only the
+		// ones with high confidence scores. Assign the box's class label as the class
+		// with the highest score for the box.
+		float* data = (float*)outs[i].data;
+		for (int j = 0; j < outs[i].rows; ++j, data += outs[i].cols) { 
+			Mat scores = outs[i].row(j).colRange(5, outs[i].cols);
+			cv::Point classIdPoint;
+			double confidence;
+			// Get the value and location of the maximum score
+			cv::minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
+			// Do confidence thresholding
+			if (confidence > confidence_threshold) { 
+				if ( classIdPoint.x==0 ) { 
+					int centerX = (int)(data[0] * frame.cols);
+					int centerY = (int)(data[1] * frame.rows);
+					int width = (int)(data[2] * frame.cols);
+					int height = (int)(data[3] * frame.rows);
+					int left = centerX - width / 2;
+					int top = centerY - height / 2;
+					classIds.push_back(classIdPoint.x);
+					confidences.push_back((float)confidence);
+					boxes.push_back(Rect(left, top, width, height));
+				}
+			}
+		}
+	}
+	/**
+	 * Later, it should return the dimensions and coordinated (box) of the bounding boxes
+	 * for transformation
+	 */
+	return 0;
 }
 /**
  * @brief 
@@ -47,7 +79,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
  * @param frame 
  * @return int 
  */
-int HumanDetector::drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number) {
+int HumanDetector::drawBoundingBoxes(double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number) {
 	return 0;
 }
 

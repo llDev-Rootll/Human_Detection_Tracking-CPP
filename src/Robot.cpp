@@ -77,6 +77,9 @@ int Robot::detectHumans() {
 		blob = prepFrame(frame, net_input_shape);
 		// Run the detection model and get the data for detected humans
 		outs = hooman.detection(net, blob);
+		// Apply confidence and NMS thresholding
+		// Get bounding boxes dimentions and locations
+		hooman.postProcess(frame, outs);
 		// Show the frame captured on screen
 		cv::imshow(window_name, frame);
 		// To get continuous live video until ctrl+C is pressed
