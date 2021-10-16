@@ -29,7 +29,7 @@ using Eigen::MatrixXd;
  * @brief 
  * 
  */
-class HumanDetector{
+class HumanDetector {
  private:
     double confidence_threshold = 0.5;
     double nms_threshold = 0.4;
@@ -37,4 +37,5 @@ class HumanDetector{
     vector<Mat> detection(Net& net, Mat& blob);
     vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
     int drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number);
+    vector<string> getOutputsNames(const Net& net);
 };

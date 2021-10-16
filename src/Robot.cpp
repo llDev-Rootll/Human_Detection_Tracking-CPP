@@ -48,6 +48,7 @@ vector<double> Robot::transformToRobotFrame(Matrix4f transformation_matrix, vect
  * @return int 
  */
 int Robot::detectHumans() {
+	HumanDetector hooman;
 	// Load the network
 	Net net = readNetFromDarknet(path_to_model_congfiguration, path_to_model_weights);
 	// Define use of specific computation backend
@@ -57,7 +58,8 @@ int Robot::detectHumans() {
 	// Test if camera is actually active or not
 	if (cap.isOpened() == false){ 
 	  std::cout << "Cannot open the video camera" << std::endl;
-	  std::cin.get(); //wait for any key press
+	  // Wait for any key press
+	  std::cin.get();
 	  return -1;
 	} 
 	// Create name for window frame
@@ -65,17 +67,22 @@ int Robot::detectHumans() {
 	cv::namedWindow(window_name, cv::WINDOW_NORMAL);
 	// Initialize the frame that will be analysed
 	Mat frame, blob;
+	// Initialize variable that stores data recieved from detection model 
+	vector<Mat> outs;
 	// Create a loop for capturing frames in real time
 	while (true) { 
 		// Take one frame from live feed for processing
 		cap >> frame;
+		// Create a pre-processed frame for detection
 		blob = prepFrame(frame, net_input_shape);
+		// Run the detection model and get the data for detected humans
+		outs = hooman.detection(net, blob);
 		// Show the frame captured on screen
 		cv::imshow(window_name, frame);
-			// To get continuous live video until ctrl+C is pressed
-			if (cv::waitKey(1) == 27 ) {
-				break;
-			}
+		// To get continuous live video until ctrl+C is pressed
+		if (cv::waitKey(1) == 27 ) {
+			break;
+		}
 	}
 	// Deactivate camera and close window
 	cap.release();

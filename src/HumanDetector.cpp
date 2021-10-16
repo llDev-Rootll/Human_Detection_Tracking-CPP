@@ -17,8 +17,12 @@
  * @return vector<cv::Mat> 
  */
 vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
-	vector<Mat> dummy;
-	return dummy;
+	std::cout << "In HumanDetector: " << std::endl;
+	net.setInput(blob);
+	// Runs the forward pass to get output of the output layers
+	vector<Mat> outs;
+	net.forward(outs, getOutputsNames(net));
+	return outs;
 }
 /**
  * @brief 
@@ -45,4 +49,25 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
  */
 int HumanDetector::drawBoundingBoxes(int classId, double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number) {
 	return 0;
+}
+
+/**
+ * @brief 
+ * 
+ * @param net 
+ * @return vector<string> 
+ */
+vector<string> HumanDetector::getOutputsNames(const Net& net) {
+    static vector<string> names;
+    if (names.empty()) {
+        //Get the indices of the output layers, i.e. the layers with unconnected outputs
+        vector<int> outLayers = net.getUnconnectedOutLayers();
+        //get the names of all the layers in the network
+        vector<string> layersNames = net.getLayerNames();
+        // Get the names of the output layers in names
+        names.resize(outLayers.size());
+        for (size_t i = 0; i < outLayers.size(); ++i)
+        names[i] = layersNames[outLayers[i] - 1];
+    }
+    return names;
 }
