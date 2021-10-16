@@ -61,6 +61,10 @@ int HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
 			}
 		}
 	}
+	// Perform non maximum suppression to eliminate redundant overlapping boxes with
+	// lower confidences
+	vector<int> indices;
+	cv::dnn::NMSBoxes(boxes, confidences, confidence_threshold, nms_threshold, indices);
 	/**
 	 * Later, it should return the dimensions and coordinated (box) of the bounding boxes
 	 * for transformation
