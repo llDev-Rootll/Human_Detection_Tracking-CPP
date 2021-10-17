@@ -30,7 +30,7 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
  * @param outs 
  * @return vector<cv::Rect> 
  */
-int HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
+vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
 	vector<int> classIds;
 	vector<float> confidences;
 	vector<Rect> boxes;
@@ -76,7 +76,7 @@ int HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
 	 * Later, it should return the dimensions and coordinated (box) of the bounding boxes
 	 * for transformation
 	 */
-	return 0;
+	return boxes;
 }
 
 /**
@@ -103,6 +103,7 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top, int r
 	top = cv::max(top, labelSize.height);
 	cv::rectangle(frame, cv::Point(left, top - std::round(1.5*labelSize.height)), cv::Point(left + std::round(1.5*labelSize.width), top + baseLine), cv::Scalar(255, 255, 255), cv::FILLED);
 	cv::putText(frame, label, cv::Point(left, top), cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0,0,0),1);
+	//std::cout << "Bounding box:" << "\n" << "Xmin: "<<left <<"\n Ymin: "<< top << "\n Xmax: " << right << "\n Ymax: " << bottom << std::endl;
 	return 0;
 }
 

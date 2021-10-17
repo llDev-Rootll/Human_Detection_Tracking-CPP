@@ -10,6 +10,7 @@
  * 
  */
 #include "HumanDetector.h"
+// Eigen::MatrixXf A(4,1) = MatrixXf::Random(4x1);
 /**
  * @brief 
  * 
@@ -17,14 +18,16 @@
 class Robot {
  private:
     vector<int> net_input_shape = {416, 416};
-    Matrix4f transformation_cr = Matrix4f::Random();
     string path_to_model_weights = "../network/yolov3.weights";
     string path_to_model_congfiguration = "../network/yolov3.cfg";
+    Eigen::Matrix4d transformation_cr = Eigen::Matrix4d::Random();
+    Eigen::Vector4d max_location = Eigen::Vector4d::Random();
+    Eigen::Vector4d min_location = Eigen::Vector4d::Random();
     double pixel_to_meter = 0;
     double area_to_depth = 0;
     Mat prepFrame(Mat frame, vector<int> net_input_shape);
-    vector<double> transformToRobotFrame(Matrix4f transformation_cr, vector<Rect> bbox_coords, double pixel_to_meter, double area_to_depth);
+    vector<double> transformToRobotFrame(vector<Rect> bbox_coords); //double pixel_to_meter, double area_to_depth);
  public:
     int detectHumans();
-    Robot(Matrix4f transformation_matrix);
+    Robot(Eigen::Matrix4d transformation_matrix);
 };

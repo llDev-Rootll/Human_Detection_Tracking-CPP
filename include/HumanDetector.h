@@ -24,7 +24,6 @@ using cv::dnn::Net;
 using cv::dnn::readNetFromDarknet;
 using cv::Rect;
 using Eigen::Matrix4f;
-using Eigen::MatrixXd;
 /**
  * @brief 
  * 
@@ -35,7 +34,7 @@ class HumanDetector {
     double nms_threshold = 0.4;
  public:
     vector<Mat> detection(Net& net, Mat& blob);
-    int postProcess(Mat& frame, const vector<Mat>& outs);
+    vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
     int drawBoundingBoxes(double confidence, int left, int top, int right, int bottom, Mat& frame, int human_number);
     vector<string> getOutputsNames(const Net& net);
 };
