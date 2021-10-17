@@ -25,8 +25,6 @@ class Robot {
     string path_to_model_weights = "../network/yolov3.weights";
     string path_to_model_congfiguration = "../network/yolov3.cfg";
     Matrix4d transformation_cr = Matrix4d::Random();
-    Vector4d max_location      = Vector4d::Random();
-    Vector4d min_location      = Vector4d::Random();
     double pixel_to_meter = 0;
     double area_to_depth = 0;
     Mat prepFrame(Mat frame);

@@ -41,6 +41,9 @@ Mat Robot::prepFrame(Mat frame) {
  * @return vector<double> 
  */
 vector<double> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
+    // Initialize the position vectors
+    Vector4d max_location      = Vector4d::Random();
+    Vector4d min_location      = Vector4d::Random();
     // Get number of detections
     int number_of_boxes = bbox_coords.size();
     std::cout << "Number of boxes detected: " << number_of_boxes << std::endl;
