@@ -1,6 +1,6 @@
 # Human_Detection_Tracking-CPP
-[![Build Status](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP.svg?branch=master)](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP)
-[![Coverage Status](https://coveralls.io/repos/github/aditiramadwar/Human_Detection_Tracking-CPP/badge.svg?branch=master)](https://coveralls.io/github/aditiramadwar/Human_Detection_Tracking-CPP?branch=master)
+[![Build Status](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP.svg?branch=Phase_1)](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP)
+[![Coverage Status](https://coveralls.io/repos/github/aditiramadwar/Human_Detection_Tracking-CPP/badge.svg?branch=Phase_1)](https://coveralls.io/github/aditiramadwar/Human_Detection_Tracking-CPP?branch=Phase_1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A C++ module to detect and track humans which outputs location information directly in a robot's reference frame.
