@@ -15,3 +15,11 @@ The initial design is as follows :
 *Fig 1 :  High Level Arhitecture Design*
 
 ## Currently under development in the "development" branch [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/tree/development)
+
+## Building for code coverage
+```
+sudo apt-get install lcov
+cmake -D COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug ../
+make
+make code_coverage
+```
