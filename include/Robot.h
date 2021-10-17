@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDE_ROBOT_H_
+#define INCLUDE_ROBOT_H_
 /**
  * @file Robot.h
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
@@ -10,7 +11,10 @@
  * 
  */
 #include "HumanDetector.h"
-// Eigen::MatrixXf A(4,1) = MatrixXf::Random(4x1);
+#include <vector>
+#include <string>
+using Eigen::Matrix4d;
+using Eigen::Vector4d;
 /**
  * @brief 
  * 
@@ -20,14 +24,16 @@ class Robot {
     vector<int> net_input_shape = {416, 416};
     string path_to_model_weights = "../network/yolov3.weights";
     string path_to_model_congfiguration = "../network/yolov3.cfg";
-    Eigen::Matrix4d transformation_cr = Eigen::Matrix4d::Random();
-    Eigen::Vector4d max_location = Eigen::Vector4d::Random();
-    Eigen::Vector4d min_location = Eigen::Vector4d::Random();
+    Matrix4d transformation_cr = Matrix4d::Random();
+    Vector4d max_location      = Vector4d::Random();
+    Vector4d min_location      = Vector4d::Random();
     double pixel_to_meter = 0;
     double area_to_depth = 0;
     Mat prepFrame(Mat frame, vector<int> net_input_shape);
-    vector<double> transformToRobotFrame(vector<Rect> bbox_coords); //double pixel_to_meter, double area_to_depth);
+    // Add double pixel_to_meter, double area_to_depth) parameters
+    vector<double> transformToRobotFrame(vector<Rect> bbox_coords);
  public:
     int detectHumans();
-    Robot(Eigen::Matrix4d transformation_matrix);
+    explicit Robot(Matrix4d transformation_matrix);
 };
+#endif  // INCLUDE_ROBOT_H_

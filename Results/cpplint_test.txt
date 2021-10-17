@@ -1,0 +1,9 @@
+Done processing ./app/main.cpp
+Done processing ./include/HumanDetector.h
+Done processing ./include/Robot.h
+Done processing ./src/HumanDetector.cpp
+Done processing ./src/Robot.cpp
+Done processing ./test/main.cpp
+Done processing ./test/test_human_detector.cpp
+Done processing ./test/test_robot.cpp
+Total errors found: 4
