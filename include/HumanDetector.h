@@ -32,11 +32,11 @@ class HumanDetector {
  private:
     float confidence_threshold = 0.5;
     float nms_threshold = 0.4;
+    vector<string> getOutputsNames(const Net& net);
  public:
     vector<Mat> detection(Net& net,  Mat& blob);
     vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
     int drawBoundingBoxes(double confidence, int left, int top,
       int right, int bottom, Mat& frame, int human_number);
-    vector<string> getOutputsNames(const Net& net);
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_
