@@ -1,7 +1,7 @@
-#ifndef INCLUDE_ROBOT_H_
-#define INCLUDE_ROBOT_H_
+#ifndef TEST_INCLUDE_TEST_ROBOT_H_
+#define TEST_INCLUDE_TEST_ROBOT_H_
 /**
- * @file Robot.h
+ * @file test_Robot.h
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
  * @brief 
  * @version 0.1
@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#include "HumanDetector.h"
+#include "test_HumanDetector.h"
 #include <vector>
 #include <string>
 using Eigen::Matrix4d;
@@ -36,4 +36,4 @@ class Robot {
     int detectHumans();
     explicit Robot(Matrix4d transformation_matrix);
 };
-#endif  // INCLUDE_ROBOT_H_
+#endif  // TEST_INCLUDE_TEST_ROBOT_H_
