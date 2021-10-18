@@ -1,3 +1,4 @@
+
 # Human_Detection_Tracking-CPP
 [![Build Status](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP.svg?branch=Phase_1)](https://app.travis-ci.com/aditiramadwar/Human_Detection_Tracking-CPP)
 [![Coverage Status](https://coveralls.io/repos/github/aditiramadwar/Human_Detection_Tracking-CPP/badge.svg?branch=Phase_1)](https://coveralls.io/github/aditiramadwar/Human_Detection_Tracking-CPP?branch=Phase_1)
@@ -71,3 +72,10 @@ sudo apt-get install lcov
 chmod a+x scripts/build_with_coverage.sh
 ./scripts/build_with_coverage.sh
 ```
+## Phase 1
+
+ - Defined Robot, HumanDetector and test classes according to the UML diagrams.
+ - Implemented all Robot and HumanDetector methods except for transformToRobotFrame method.
+ - Definition and implementation of test cases are planned for Phase 2.
+ Please refer to the backlog table, [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing), for an exhaustive list tasks completed in Phase 1.  
+
