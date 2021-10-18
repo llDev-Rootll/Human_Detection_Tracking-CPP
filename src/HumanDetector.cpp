@@ -10,11 +10,11 @@
  */
 #include "HumanDetector.h"
 /**
- * @brief 
+ * @brief detection : Runs the neural network to detect humans.
  * 
- * @param net 
- * @param blob 
- * @return vector<cv::Mat> 
+ * @param net : DNN network object
+ * @param blob : A 4D matrix
+ * @return vector<Mat> A matrix with bounding boxes and scores
  */
 vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
     net.setInput(blob);
@@ -24,11 +24,13 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
     return outs;
 }
 /**
- * @brief 
+ * @brief postProcess : Performs confidence thresholding and
+ * non-max suppression.
  * 
- * @param frame 
- * @param outs 
- * @return vector<cv::Rect> 
+ * @param frame : Current camera frame
+ * @param outs : A matrix with bounding boxes and scores
+ * @return vector<Rect> : Dimensions of the bounding 
+ *                        boxes for each human detected in frame.
  */
 vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
     vector<int> classIds;
@@ -83,16 +85,17 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
 }
 
 /**
- * @brief 
+ * @brief drawBoundingBoxes : Draws bouding boxes around each 
+ *                            human detected in frame.
  * 
- * @param classId 
- * @param confidence 
- * @param left 
- * @param top 
- * @param right 
- * @param bottom 
- * @param frame 
- * @return int 
+ * @param confidence : Confidence for each detection
+ * @param left : bounding box dimension
+ * @param top  : bounding box dimension
+ * @param right  : bounding box dimension
+ * @param bottom  : bounding box dimension
+ * @param frame  : Current camera frame
+ * @param human_number : Number of humans detected
+ * @return int : flag for indication
  */
 int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
            int right, int bottom, Mat& frame, int human_number) {
@@ -117,9 +120,8 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
      cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0, 0, 0), 1);
     return 0;
 }
-
 /**
- * @brief 
+ * @brief Get the Outputs Names object
  * 
  * @param net 
  * @return vector<string> 
