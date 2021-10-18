@@ -66,6 +66,7 @@ chmod a+x scripts/build_without_coverage.sh
 ./scripts/build_without_coverage.sh
 ```
 ## Building with code coverage
+
 Execute these commands in the root folder : 
 ```
 sudo apt-get install lcov
