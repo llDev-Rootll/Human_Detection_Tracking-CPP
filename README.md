@@ -36,13 +36,12 @@ Continuous integration is tracked by using Travis CI and code coverage is tracke
 | :---         |     :---:      |          ---: |
 | OpenCV   | 4.5.1     | [Apache 2](https://github.com/opencv/opencv/blob/master/LICENSE)    |
 | Eigen     | 3.X.X       | [MPL2](https://www.mozilla.org/en-US/MPL/2.0/FAQ/)      |
-| GTest    | 1.X.X      |   [BSD 3-Clause](https://github.com/google/googletest/blob/master/LICENSE)    |
 
 Run this command in the root directory to install the dependencies : 
-
-    chmod a+x install_dependencies.sh
-	./shell_scripts/install_dependencies.sh
-
+```
+chmod a+x scripts/install_dependencies.sh
+./scripts/install_dependencies.sh
+```
 
 ## System Architecture 
 The following shows the activity diagram for our proposed schema : 
@@ -50,7 +49,7 @@ The following shows the activity diagram for our proposed schema :
 
 *Fig 1 :  Activity Diagram*
 
-The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Class_Diagram.pdf).
+The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Phase1_revision/Class_Diagram.pdf).
 ## Testing
 Unit Testing will be used to test each submodule and ensure complete code coverage. For this Google Gtest will be leveraged and identical test classes and methods will be created with minimal modification in order to facilitate testing.
 
@@ -58,14 +57,14 @@ Additionally, a small test subset of the COCO test data will be used to validate
 
 ## Building without code coverage
 Execute these commands in the root folder : 
-
-    chmod a+x shell_scripts/build_without_coverage.sh
-	./shell_scripts/build_without_coverage.sh
-
+```
+chmod a+x scripts/build_without_coverage.sh
+./scripts/build_without_coverage.sh
+```
 ## Building with code coverage
 Execute these commands in the root folder : 
 ```
 sudo apt-get install lcov
-chmod a+x shell_scripts/build_with_coverage.sh
-./shell_scripts/build_with_coverage.sh
+chmod a+x scripts/build_with_coverage.sh
+./scripts/build_with_coverage.sh
 ```
