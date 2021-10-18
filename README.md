@@ -21,8 +21,11 @@ Our system is built using C++ and will employ the robust YOLOv3 neural network m
 The Agile Iterative Process will be used for the development of this system consisting of two sprints.
 
 The project proposal can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Human%20Detector%20&%20Tracker%20-%20Proposal.pdf).
+
 The quad chart can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Quad_Chart.pdf).
+
 The overall backlog table and the tables for each sprints can be found [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing).
+
 ## Requirements
 | Name | Version | 
 | :---         |     :---:      |    
