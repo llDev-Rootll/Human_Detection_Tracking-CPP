@@ -52,7 +52,7 @@ The following shows the activity diagram for our proposed schema :
 
 *Fig 1 :  Activity Diagram*
 
-The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Phase1_revision/Class_Diagram.pdf).
+The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Phase1_revision/Revised_Class_Diagram.pdf).
 ## Testing
 Unit Testing will be used to test each submodule and ensure complete code coverage. For this Google Gtest will be leveraged and identical test classes and methods will be created with minimal modification in order to facilitate testing.
 
