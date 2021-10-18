@@ -29,4 +29,6 @@ sudo make install
 sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
 sudo ldconfig
 cd ../../
+sudo rm -rf opencv-4.5.1
+sudo rm -rf opencv_contrib-4.5.1
 echo "OpenCV installed."
