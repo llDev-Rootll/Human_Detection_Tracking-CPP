@@ -20,9 +20,9 @@ Our system is built using C++ and will employ the robust YOLOv3 neural network m
 ## Project Collaterals
 The Agile Iterative Process will be used for the development of this system consisting of two sprints.
 
-The project proposal can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Human%20Detector%20&%20Tracker%20-%20Proposal.pdf).
+The project proposal can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/assets/Human%20Detector%20&%20Tracker%20-%20Proposal.pdf).
 
-The quad chart can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Quad_Chart.pdf).
+The quad chart can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/assets/Quad_Chart.pdf).
 
 The overall backlog table and the tables for each sprints can be found [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing).
 
@@ -52,7 +52,7 @@ The following shows the activity diagram for our proposed schema :
 
 *Fig 1 :  Activity Diagram*
 
-The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/documents/Phase1_revision/Revised_Class_Diagram.pdf).
+The corresponding class diagram can be found [here](https://github.com/aditiramadwar/Human_Detection_Tracking-CPP/blob/Phase_1/UML/revised/Revised_Class_Diagram.pdf).
 ## Testing
 Unit Testing will be used to test each submodule and ensure complete code coverage. For this Google Gtest will be leveraged and identical test classes and methods will be created with minimal modification in order to facilitate testing.
 
