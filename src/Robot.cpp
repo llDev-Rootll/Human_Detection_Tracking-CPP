@@ -21,6 +21,7 @@
 /**
  * @file Robot.cpp
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
  * @brief 
  * @version 0.1
  * @date 2021-10-14
@@ -132,8 +133,10 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
         bottom_right = transformation_cr * min_location;
 
         // Append the position vectors in the main vector
-        final.push_back(Rect(top_left[0], top_left[1], top_left[2], top_left[3]));
-        final.push_back(Rect(bottom_right[0],bottom_right[1], bottom_right[2], bottom_right[3]));
+        final.push_back(Rect(top_left[0], top_left[1],
+         top_left[2], top_left[3]));
+        final.push_back(Rect(bottom_right[0], bottom_right[1],
+         bottom_right[2], bottom_right[3]));
     }
     return final;
 }

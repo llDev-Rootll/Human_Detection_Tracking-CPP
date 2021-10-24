@@ -23,6 +23,7 @@
 /**
  * @file HumanDetector.h
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
  * @brief 
  * @version 0.1
  * @date 2021-10-14
@@ -101,6 +102,5 @@ class HumanDetector {
      * @param net 
      * @return vector<string> 
      */
-
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_

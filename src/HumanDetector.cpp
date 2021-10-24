@@ -21,6 +21,7 @@
 /**
  * @file HumanDetector.cpp
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
  * @brief 
  * @version 0.1
  * @date 2021-10-14
@@ -29,7 +30,7 @@
  * 
  */
 #include "HumanDetector.h"
-int HumanDetector::human_detection_label=0;
+int HumanDetector::human_detection_label = 0;
 
 HumanDetector::HumanDetector(float conf_th, float nms_th) {
     setConfidenceThreshold(conf_th);

@@ -23,6 +23,7 @@
 /**
  * @file Robot.h
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
  * @brief 
  * @version 0.1
  * @date 2021-10-14
@@ -41,7 +42,6 @@ using Eigen::Vector4d;
  */
 class Robot {
  public:
-    
     // A constructor
     explicit Robot(Matrix4d transformation_matrix,
     double focal_length = 984.251, double pixel_height_of_human = 672);
@@ -56,6 +56,7 @@ class Robot {
     double calculateDepth(Rect bbox_coords);
     double getFocalLength();
     void setFocalLength(double focal_length);
+
  private:
     static vector<int> net_input_shape;
     Matrix4d transformation_cr;
