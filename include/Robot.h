@@ -44,7 +44,8 @@ class Robot {
     /**
      * @brief detectHumans : Main method for human detection
      */
-    int detectHumans();
+    int detectHumans(Mat frame, Net net);
+    Net loadNetwork(string model_config, string model_weights);
     // A constructor
     explicit Robot(Matrix4d transformation_matrix);
     

@@ -43,6 +43,15 @@ Robot::Robot(Eigen::Matrix4d transformation_matrix) {
  * @param frame : Current Camera frame
  * @return Mat : processed camera frame, ready for detection
  */
+Net Robot::loadNetwork(string model_config, string model_weights) {
+    // Load the network
+    Net net = cv::dnn::readNetFromDarknet(model_config,
+    model_weights);
+    // Define use of specific computation backend
+    net.setPreferableBackend(cv::dnn::DNN_TARGET_CPU);
+    return net;
+}
+
 Mat Robot::prepFrame(Mat frame) {
     Mat blob_frame;
     blob_frame = cv::dnn::blobFromImage(frame, 1/255.0,
@@ -88,36 +97,15 @@ vector<double> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
 /**
  * @brief detectHumans : Main method for human detection
  */
-int Robot::detectHumans() {
+int Robot::detectHumans(Mat frame, Net net) {
     HumanDetector hooman;
-    // Load the network
-    Net net = cv::dnn::readNetFromDarknet(path_to_model_congfiguration,
-    path_to_model_weights);
-    // Define use of specific computation backend
-    net.setPreferableBackend(cv::dnn::DNN_TARGET_CPU);
-    // Start video capture by activating camera
-    cv::VideoCapture cap(0);
-    // Test if camera is actually active or not
-    if (cap.isOpened() == false) {
-      std::cout << "Cannot open the video camera" << std::endl;
-      // Wait for any key press
-      std::cin.get();
-      return -1;
-    }
-    // Create name for window frame
-    static const string window_name = "Human Object Detector & Tracker";
-    cv::namedWindow(window_name, cv::WINDOW_NORMAL);
-    // Initialize the frame that will be analysed
-    Mat frame, blob;
-    // Initialize variable that stores data recieved from detection model
-    vector<Mat> outs;
     vector<Rect> bbox;
-    // Create a loop for capturing frames in real time
-    while (true) {
-        // Take one frame from live feed for processing
-        cap >> frame;
-        // Create a pre-processed frame for detection
-        blob = prepFrame(frame);
+    vector<Mat> outs;
+    vector<Rect> human_locations;
+    bbox.clear();
+    outs.clear();
+    human_locations.clear();
+        Mat blob = prepFrame(frame);
         // Run the detection model and get the data for detected humans
         outs = hooman.detection(net, blob);
         // Apply confidence and NMS thresholding
@@ -126,15 +114,6 @@ int Robot::detectHumans() {
         // Testing out transformation matrix
         vector<Rect> dummy = {Rect(10, 20, 30, 1)};
         transformToRobotFrame(dummy);
-        // Show the frame captured on screen
-        cv::imshow(window_name, frame);
-        // To get continuous live video until ctrl+C is pressed
-       if (cv::waitKey(1) == 27) {
-           break;
-       }
-    }
-    // Deactivate camera and close window
-    cap.release();
-    cv::destroyAllWindows();
+
     return 0;
-}
+} 
