@@ -68,7 +68,7 @@ Robot test_bot(Eigen::Matrix4d::Identity());
 
 TEST(Robot, test_set_transformation_matrix) {
 Robot test_bot(Eigen::Matrix4d::Identity());
-  std::cout << "Checking transformation matrix: "<< std::endl;
+  std::cout << "Checking transformation matrix setters and getters: "<< std::endl;
   Matrix4d test_matrix;
   test_matrix <<  1, 2, 3, 0,
                   4, 5, 6, 0,
@@ -77,3 +77,14 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   ASSERT_NO_THROW(test_bot.setTransformationMatrix(test_matrix));
   ASSERT_EQ(test_matrix(0), test_bot.getTransformationMatrix()(0));
 }
+
+TEST(Robot, test_transformation) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking transformation to robot frame: "<< std::endl;
+    vector<Rect> dummy = {Rect(0, 0, 1, 1)};
+  // Run the detection model and get the data for detected humans
+  ASSERT_NO_THROW(test_bot.transformToRobotFrame(dummy));
+  EXPECT_EQ(1, test_bot.transformToRobotFrame(dummy).size()/2);
+//   EXPECT_EQ()
+}
+
