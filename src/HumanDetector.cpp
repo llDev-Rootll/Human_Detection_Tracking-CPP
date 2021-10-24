@@ -118,9 +118,12 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
     cv::dnn::NMSBoxes(boxes, confidences,
         confidence_threshold, nms_threshold, indices);
     // Draw bounding boxes and give labels
+        vector<Rect> bboxes;
+        bboxes.clear();
     for (size_t i = 0; i < indices.size(); ++i) {
         int idx = indices[i];
         Rect box = boxes[idx];
+        bboxes.push_back(box);
         drawBoundingBoxes(confidences[idx], box.x, box.y,
                  box.x + box.width, box.y + box.height, frame, i);
     }
@@ -128,7 +131,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
      * Later, it should return the x-axis of the bounding boxes for depth
      * for transformation
      */
-    return boxes;
+    return bboxes;
 }
 
 /**
