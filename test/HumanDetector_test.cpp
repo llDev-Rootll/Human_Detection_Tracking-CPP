@@ -59,7 +59,7 @@ TEST(HumanDetector, test_detection) {
 
   const char* str = "../assets/test.jpeg"; 
   Mat frame = cv::imread(str);
-  
+
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
 
@@ -71,4 +71,28 @@ TEST(HumanDetector, test_detection) {
   EXPECT_EQ(3, outs.size());
   EXPECT_EQ(507, outs[0].rows);
   EXPECT_EQ(85, outs[1].cols);
+}
+
+TEST(HumanDetector, test_conf_threshold) {
+HumanDetector test_hooman;
+  std::cout << "Checking confidence threshold setter: "<< std::endl;
+  test_hooman.setConfidenceThreshold(0.88);
+
+  ASSERT_EQ(0.88, test_hooman.getConfidenceThreshold());
+}
+
+TEST(HumanDetector, test_nms_threshold) {
+HumanDetector test_hooman;
+  std::cout << "Checking nms threshold setter: "<< std::endl;
+  test_hooman.setNmsThreshold(0.99);
+
+  ASSERT_EQ(0.99, test_hooman.getNmsThreshold());
+}
+
+TEST(HumanDetector, test_invalid_thresholds) {
+  std::cout << "Checking invalid theshold exception catches: "<< std::endl;
+  HumanDetector invalid_thresh;
+  EXPECT_THROW(invalid_thresh.setNmsThreshold(-0.99), std::invalid_argument);
+  EXPECT_THROW(invalid_thresh.setConfidenceThreshold(-0.88),
+   std::invalid_argument);
 }
