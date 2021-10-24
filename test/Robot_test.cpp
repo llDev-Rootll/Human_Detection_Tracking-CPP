@@ -88,3 +88,16 @@ Robot test_bot(Eigen::Matrix4d::Identity());
 //   EXPECT_EQ()
 }
 
+TEST(Robot, test_detection) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking detection functionality: "<< std::endl;
+  const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+  const char* path_to_model_weights = "../network/yolov3.weights";
+
+  const char* str = "../assets/test.jpeg"; 
+  Mat frame = cv::imread(str);
+    Net net = test_bot.loadNetwork(path_to_model_congfiguration,
+    path_to_model_weights);
+  EXPECT_EQ(4, test_bot.detectHumans(frame, net).size());
+}
+
