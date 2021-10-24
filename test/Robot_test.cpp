@@ -33,13 +33,11 @@
 #include <fstream>
 #include <iostream>
 
-const char* path_to_model_congfiguration = "../network/yolov3.cfg";
-const char* path_to_model_weights = "../network/yolov3.weights";
-const char* str = "../assets/test.jpeg";  // Lena image
-Mat frame = cv::imread(str);
 
 
 TEST(Robot, load_network) {
+	const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+	const char* path_to_model_weights = "../network/yolov3.weights";
   Robot test_bot(Eigen::Matrix4d::Identity());
 
   std::cout << "Checking load_network functionality: "<< std::endl;
@@ -50,6 +48,10 @@ TEST(Robot, load_network) {
 TEST(Robot, test_robot_prepframe) {
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking prepframe functionality: "<< std::endl;
+  
+	const char* str = "../assets/test.jpeg"; 
+	Mat frame = cv::imread(str);
+
   Mat blob = test_bot.prepFrame(frame);  // Check size of returned
   EXPECT_EQ(1, blob.size[0]);
   EXPECT_EQ(3, blob.size[1]);

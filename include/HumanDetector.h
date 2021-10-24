@@ -84,6 +84,7 @@ class HumanDetector {
      */
     int drawBoundingBoxes(double confidence, int left, int top,
       int right, int bottom, Mat& frame, int human_number);
+    vector<string> getOutputsNames(const Net& net);
     void setConfidenceThreshold(double conf_th);
     double getConfidenceThreshold();
     void setNmsThreshold(double nms_th);
@@ -100,6 +101,6 @@ class HumanDetector {
      * @param net 
      * @return vector<string> 
      */
-    vector<string> getOutputsNames(const Net& net);
+
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_

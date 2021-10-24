@@ -31,9 +31,24 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <iostream>
+#include "Robot.h"
 
 
-TEST(HumanDetector, test_detector_dummy1) {
-  
-  ASSERT_TRUE(true);
+
+const char* str = "../assets/test.jpeg"; 
+Mat frame = cv::imread(str);
+
+
+TEST(HumanDetector, test_network_output_tensors) {
+HumanDetector test_hooman;
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking network output tensors : " << std::endl;
+  const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+  const char* path_to_model_weights = "../network/yolov3.weights";
+  Net net = test_bot.loadNetwork(path_to_model_congfiguration,
+    path_to_model_weights);
+  static vector<string> names = test_hooman.getOutputsNames(net);
+  EXPECT_EQ("yolo_82", names[0]);
+  EXPECT_EQ("yolo_94", names[1]);
+  EXPECT_EQ("yolo_106", names[2]);
 }
