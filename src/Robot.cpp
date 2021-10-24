@@ -59,6 +59,15 @@ Mat Robot::prepFrame(Mat frame) {
      cv::Scalar(0, 0, 0), true, false);
     return blob_frame;
 }
+
+double Robot::calculateDepth(Rect bbox_coords) {
+    double perceived_height = bbox_coords.height;
+    double est_depth = height_of_human * focal_length / perceived_height;
+    // std::cout << height_of_human<< std::endl;
+    // std::cout << focal_length<< std::endl;
+    std::cout << est_depth<< std::endl;
+    return est_depth;
+}
 /**
  * @brief transformToRobotFrame
  * 
@@ -70,7 +79,7 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
     Vector4d max_location      = Vector4d::Random();
     Vector4d min_location      = Vector4d::Random();
     // Kept as 1 for testing purposes
-    double depth=1;
+    double depth;
     double pix_to_cm = height_of_human/pixel_height_of_human;
     Eigen::Vector4d top_left;
     Eigen::Vector4d bottom_right;
@@ -86,7 +95,7 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
         // std::cout << "For detection: " << i << std::endl;
         // Create a rect for each detection
         Rect box = bbox_coords[i];
-        // depth = calculateDepth(box);
+        depth = calculateDepth(box);
         // Feed bounding box coordinates in vector of 4x1
         // Top left camera ref frame
         max_location << depth, box.x*pix_to_cm, box.y*pix_to_cm, 1;

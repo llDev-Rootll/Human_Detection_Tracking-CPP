@@ -41,13 +41,13 @@ using Eigen::Vector4d;
  */
 class Robot {
  public:
-    /**
-     * @brief detectHumans : Main method for human detection
-     */
-    vector<Rect> detectHumans(Mat frame, Net net);
-    Net loadNetwork(string model_config, string model_weights);
+    
     // A constructor
-    explicit Robot(Matrix4d transformation_matrix);
+    explicit Robot(Matrix4d transformation_matrix,
+    double focal_length = 984.251);
+    Net loadNetwork(string model_config, string model_weights);
+    vector<Rect> detectHumans(Mat frame, Net net);
+    
      /**
      * @brief transformToRobotFrame
      * 
@@ -55,14 +55,13 @@ class Robot {
      * @return vector<double> : location of each human in robot reference frame
      */
     vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
+    double calculateDepth(Rect bbox_coords);
  private:
     vector<int> net_input_shape = {416, 416};
-    string path_to_model_weights = "../network/yolov3.weights";
-    string path_to_model_congfiguration = "../network/yolov3.cfg";
     Matrix4d transformation_cr = Matrix4d::Random();
-    double pixel_to_meter = 0;
-    double area_to_depth = 0;
     Mat prepFrame(Mat frame);
-    
+    double focal_length;
+    static double height_of_human;  // in cms
+    double pixel_height_of_human=672;
 };
 #endif  // INCLUDE_ROBOT_H_
