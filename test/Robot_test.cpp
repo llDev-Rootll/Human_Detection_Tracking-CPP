@@ -35,6 +35,9 @@
 
 const char* path_to_model_congfiguration = "../network/yolov3.cfg";
 const char* path_to_model_weights = "../network/yolov3.weights";
+const char* str = "../assets/test.jpeg";  // Lena image
+Mat frame = cv::imread(str);
+
 
 TEST(Robot, load_network) {
   Robot test_bot(Eigen::Matrix4d::Identity());
@@ -42,4 +45,14 @@ TEST(Robot, load_network) {
   std::cout << "Checking load_network functionality: "<< std::endl;
   ASSERT_NO_THROW(test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights));
+}
+
+TEST(Robot, test_robot_prepframe) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking prepframe functionality: "<< std::endl;
+  Mat blob = test_bot.prepFrame(frame);  // Check size of returned
+  EXPECT_EQ(1, blob.size[0]);
+  EXPECT_EQ(3, blob.size[1]);
+  EXPECT_EQ(416, blob.size[2]);
+  EXPECT_EQ(416, blob.size[3]);
 }
