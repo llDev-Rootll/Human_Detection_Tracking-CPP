@@ -84,10 +84,15 @@ class HumanDetector {
      */
     int drawBoundingBoxes(double confidence, int left, int top,
       int right, int bottom, Mat& frame, int human_number);
+    void setConfidenceThreshold(double conf_th);
+    double getConfidenceThreshold();
+    void setNmsThreshold(double nms_th);
+    double getNmsThreshold();
+    explicit HumanDetector(float conf_th = 0.6, float nms_th = 0.4);
 
  private:
-    float confidence_threshold = 0.5;
-    float nms_threshold = 0.4;
+    float confidence_threshold;
+    float nms_threshold;
     /**
      * @brief Get the Outputs Names object
      * 

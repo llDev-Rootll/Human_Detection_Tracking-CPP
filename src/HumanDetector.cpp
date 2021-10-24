@@ -29,6 +29,32 @@
  * 
  */
 #include "HumanDetector.h"
+
+HumanDetector::HumanDetector(float conf_th, float nms_th) {
+    setConfidenceThreshold(conf_th);
+    setNmsThreshold(nms_th);
+}
+
+
+void HumanDetector::setConfidenceThreshold(double conf_th) {
+    confidence_threshold = conf_th;
+    if (confidence_threshold < 0) {
+        string arg = "confidence_threshold cannot be less than 0";
+        throw std::invalid_argument(arg);
+    }
+}
+double HumanDetector::getConfidenceThreshold() {
+    return confidence_threshold;
+}
+void HumanDetector::setNmsThreshold(double nms_th) {
+    nms_threshold = nms_th;
+    if (nms_threshold < 0) {
+        throw std::invalid_argument("nms_threshold cannot be less than 0");
+    }
+}
+double HumanDetector::getNmsThreshold() {
+    return nms_threshold;
+}
 /**
  * @brief detection : Runs the neural network to detect humans.
  * 
