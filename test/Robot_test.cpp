@@ -29,11 +29,17 @@
  * 
  */
 #include <gtest/gtest.h>
+#include "Robot.h"
 #include <fstream>
 #include <iostream>
 
+const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+const char* path_to_model_weights = "../network/yolov3.weights";
 
-TEST(Robot, test_robot_dummy) {
-  
-  ASSERT_TRUE(true);
+TEST(Robot, load_network) {
+  Robot test_bot(Eigen::Matrix4d::Identity());
+
+  std::cout << "Checking load_network functionality: "<< std::endl;
+  ASSERT_NO_THROW(test_bot.loadNetwork(path_to_model_congfiguration,
+    path_to_model_weights));
 }
