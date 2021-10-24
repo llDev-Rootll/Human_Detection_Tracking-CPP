@@ -96,3 +96,21 @@ TEST(HumanDetector, test_invalid_thresholds) {
   EXPECT_THROW(invalid_thresh.setConfidenceThreshold(-0.88),
    std::invalid_argument);
 }
+
+TEST(HumanDetector, test_postprocess) {
+HumanDetector test_hooman;
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking post process functionality: "<< std::endl;
+  const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+  const char* path_to_model_weights = "../network/yolov3.weights";
+
+  const char* str = "../assets/test.jpeg"; 
+  Mat frame = cv::imread(str);
+  Net net = test_bot.loadNetwork(path_to_model_congfiguration,
+  path_to_model_weights);
+  Mat blob = test_bot.prepFrame(frame);  // Check size of returned
+  vector<Mat> outs = test_hooman.detection(net, blob);
+  // Run the detection model and get the data for detected 
+
+  EXPECT_EQ(4, test_hooman.postProcess(frame, outs).size());
+}
