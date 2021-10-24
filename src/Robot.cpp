@@ -62,6 +62,10 @@ Net Robot::loadNetwork(string model_config, string model_weights) {
     return net;
 }
 
+vector<int> Robot::getShape() {
+    return net_input_shape;
+}
+
 
 void Robot::setTransformationMatrix(Eigen::Matrix4d matrix) {
     transformation_cr = matrix;

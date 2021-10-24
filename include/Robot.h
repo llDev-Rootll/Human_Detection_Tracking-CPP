@@ -48,9 +48,10 @@ class Robot {
     Net loadNetwork(string model_config, string model_weights);
     vector<Rect> detectHumans(Mat frame, Net net);
 
-
+    vector<int> getShape();
     void setTransformationMatrix(Eigen::Matrix4d matrix);
     Eigen::Matrix4d getTransformationMatrix();
+    
     vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
     double calculateDepth(Rect bbox_coords);
     double getFocalLength();
