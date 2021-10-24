@@ -88,6 +88,15 @@ Robot test_bot(Eigen::Matrix4d::Identity());
 //   EXPECT_EQ()
 }
 
+TEST(Robot, test_focal_length) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking focal length : "<< std::endl;
+  test_bot.setFocalLength(55.55);
+
+  ASSERT_EQ(55.55, test_bot.getFocalLength());
+}
+
+
 TEST(Robot, test_detection) {
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking detection functionality: "<< std::endl;
@@ -98,6 +107,16 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   Mat frame = cv::imread(str);
     Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-  EXPECT_EQ(4, test_bot.detectHumans(frame, net).size());
+  EXPECT_EQ(8, test_bot.detectHumans(frame, net).size());
 }
 
+TEST(Robot, test_calculate_depth) {
+  std::cout << "Checking depth calculation: "<< std::endl;
+  Robot test_bot(Eigen::Matrix4d::Identity());
+  test_bot.setFocalLength(984.251);
+  Rect dummy = Rect(0, 0, 0, 672);
+  // Run the detection model and get the data for detected humans
+
+  EXPECT_NEAR(250.0, test_bot.calculateDepth(dummy), 5);
+
+}
