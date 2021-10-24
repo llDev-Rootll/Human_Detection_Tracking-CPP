@@ -35,9 +35,6 @@
 
 
 
-const char* str = "../assets/test.jpeg"; 
-Mat frame = cv::imread(str);
-
 
 TEST(HumanDetector, test_network_output_tensors) {
 HumanDetector test_hooman;
@@ -51,4 +48,27 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   EXPECT_EQ("yolo_82", names[0]);
   EXPECT_EQ("yolo_94", names[1]);
   EXPECT_EQ("yolo_106", names[2]);
+}
+
+TEST(HumanDetector, test_detection) {
+  HumanDetector test_hooman;
+  Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking detection functionality: "<< std::endl;
+  const char* path_to_model_congfiguration = "../network/yolov3.cfg";
+  const char* path_to_model_weights = "../network/yolov3.weights";
+
+  const char* str = "../assets/test.jpeg"; 
+  Mat frame = cv::imread(str);
+  
+  Net net = test_bot.loadNetwork(path_to_model_congfiguration,
+  path_to_model_weights);
+
+
+  Mat blob = test_bot.prepFrame(frame);  // Check size of returned
+  // Run the detection model and get the data for detected humans
+  vector<Mat> outs;
+  outs = test_hooman.detection(net, blob);
+  EXPECT_EQ(3, outs.size());
+  EXPECT_EQ(507, outs[0].rows);
+  EXPECT_EQ(85, outs[1].cols);
 }
