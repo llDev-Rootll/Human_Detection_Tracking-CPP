@@ -40,6 +40,14 @@ using Eigen::Vector4d;
  * 
  */
 class Robot {
+ public:
+    /**
+     * @brief detectHumans : Main method for human detection
+     */
+    int detectHumans();
+    // A constructor
+    explicit Robot(Matrix4d transformation_matrix);
+    
  private:
     vector<int> net_input_shape = {416, 416};
     string path_to_model_weights = "../network/yolov3.weights";
@@ -62,12 +70,5 @@ class Robot {
      * @return vector<double> : location of each human in robot reference frame
      */
     vector<double> transformToRobotFrame(vector<Rect> bbox_coords);
- public:
-    /**
-     * @brief detectHumans : Main method for human detection
-     */
-    int detectHumans();
-    // A constructor
-    explicit Robot(Matrix4d transformation_matrix);
 };
 #endif  // INCLUDE_ROBOT_H_

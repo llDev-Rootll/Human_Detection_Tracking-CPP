@@ -49,17 +49,6 @@ using cv::Size;
  * A class for human detection and drawing bounding boxes 
  */
 class HumanDetector {
- private:
-    float confidence_threshold = 0.5;
-    float nms_threshold = 0.4;
-    /**
-     * @brief Get the Outputs Names object
-     * 
-     * @param net 
-     * @return vector<string> 
-     */
-    vector<string> getOutputsNames(const Net& net);
-
  public:
  /**
   * @brief detection : Runs the neural network to detect humans.
@@ -95,5 +84,16 @@ class HumanDetector {
      */
     int drawBoundingBoxes(double confidence, int left, int top,
       int right, int bottom, Mat& frame, int human_number);
+
+ private:
+    float confidence_threshold = 0.5;
+    float nms_threshold = 0.4;
+    /**
+     * @brief Get the Outputs Names object
+     * 
+     * @param net 
+     * @return vector<string> 
+     */
+    vector<string> getOutputsNames(const Net& net);
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_
