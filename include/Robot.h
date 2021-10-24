@@ -47,13 +47,10 @@ class Robot {
     double focal_length = 984.251);
     Net loadNetwork(string model_config, string model_weights);
     vector<Rect> detectHumans(Mat frame, Net net);
-    
-     /**
-     * @brief transformToRobotFrame
-     * 
-     * @param bbox_coords : location of each human in camera reference frame
-     * @return vector<double> : location of each human in robot reference frame
-     */
+
+
+    void setTransformationMatrix(Eigen::Matrix4d matrix);
+    Eigen::Matrix4d getTransformationMatrix();
     vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
     double calculateDepth(Rect bbox_coords);
     double getFocalLength();

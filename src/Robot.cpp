@@ -62,6 +62,14 @@ Net Robot::loadNetwork(string model_config, string model_weights) {
     return net;
 }
 
+
+void Robot::setTransformationMatrix(Eigen::Matrix4d matrix) {
+    transformation_cr = matrix;
+}
+Eigen::Matrix4d Robot::getTransformationMatrix() {
+    return transformation_cr;
+}
+
 Mat Robot::prepFrame(Mat frame) {
     Mat blob_frame;
     blob_frame = cv::dnn::blobFromImage(frame, 1/255.0,
