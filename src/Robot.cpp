@@ -37,9 +37,10 @@ double Robot::height_of_human = 171.45;
  * @param transformation_matrix 
  */
 Robot::Robot(Eigen::Matrix4d transformation_matrix,
-    double f_length) {
+    double f_length, double p_height_of_human) {
     transformation_cr = transformation_matrix;
     focal_length = f_length;
+    pixel_height_of_human = p_height_of_human;
 }
 void Robot::setFocalLength(double f) {
     focal_length = f;
@@ -87,7 +88,7 @@ double Robot::calculateDepth(Rect bbox_coords) {
     double est_depth = height_of_human * focal_length / perceived_height;
     // std::cout << height_of_human<< std::endl;
     // std::cout << focal_length<< std::endl;
-    std::cout << est_depth<< std::endl;
+    // std::cout << est_depth<< std::endl;
     return est_depth;
 }
 /**

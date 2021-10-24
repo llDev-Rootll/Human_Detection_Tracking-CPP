@@ -91,8 +91,9 @@ class HumanDetector {
     explicit HumanDetector(float conf_th = 0.6, float nms_th = 0.4);
 
  private:
-    float confidence_threshold;
-    float nms_threshold;
+    double confidence_threshold;
+    double nms_threshold;
+    static int human_detection_label;
     /**
      * @brief Get the Outputs Names object
      * 

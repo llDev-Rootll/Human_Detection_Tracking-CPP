@@ -44,24 +44,24 @@ class Robot {
     
     // A constructor
     explicit Robot(Matrix4d transformation_matrix,
-    double focal_length = 984.251);
+    double focal_length = 984.251, double pixel_height_of_human = 672);
     Net loadNetwork(string model_config, string model_weights);
     vector<Rect> detectHumans(Mat frame, Net net);
-
+    Mat prepFrame(Mat frame);
     vector<int> getShape();
     void setTransformationMatrix(Eigen::Matrix4d matrix);
     Eigen::Matrix4d getTransformationMatrix();
-    
+
     vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
     double calculateDepth(Rect bbox_coords);
     double getFocalLength();
     void setFocalLength(double focal_length);
  private:
     static vector<int> net_input_shape;
-    Matrix4d transformation_cr = Matrix4d::Random();
-    Mat prepFrame(Mat frame);
+    Matrix4d transformation_cr;
+
     double focal_length;
     static double height_of_human;  // in cms
-    double pixel_height_of_human=672;
+    double pixel_height_of_human;
 };
 #endif  // INCLUDE_ROBOT_H_

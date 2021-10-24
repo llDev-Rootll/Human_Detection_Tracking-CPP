@@ -29,6 +29,7 @@
  * 
  */
 #include "HumanDetector.h"
+int HumanDetector::human_detection_label=0;
 
 HumanDetector::HumanDetector(float conf_th, float nms_th) {
     setConfidenceThreshold(conf_th);
@@ -147,7 +148,7 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
            int right, int bottom, Mat& frame, int human_number) {
      // Draw a rectangle displaying the bounding box
     cv::rectangle(frame, cv::Point(left, top),
-     cv::Point(right, bottom), cv::Scalar(255, 178, 50), 3);
+     cv::Point(right, bottom), cv::Scalar(0, 0, 255), 3);
     // Get the label for the class name and its confidence
     string label = cv::format("%.2f", confidence);
     label = "Human number : " +  std::to_string(human_number + 1) +
@@ -160,7 +161,7 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
     cv::rectangle(frame, cv::Point(left,
      top - std::round(1.5 * labelSize.height)),
      cv::Point(left + std::round(1.5 * labelSize.width), top + baseLine),
-     cv::Scalar(255, 255, 255), cv::FILLED);
+     cv::Scalar(0, 0, 255), cv::FILLED);
 
     cv::putText(frame, label, cv::Point(left, top),
      cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0, 0, 0), 1);
