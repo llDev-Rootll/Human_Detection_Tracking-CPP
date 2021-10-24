@@ -1,0 +1,1 @@
+cppcheck $( find . -name \*.h -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/") 
