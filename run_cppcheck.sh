@@ -1,1 +1,1 @@
-cppcheck $( find . -name \*.h -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/") 
+cppcheck $( find . -name \*.h -or -name \*.cpp | grep -vE -e "^./build/" -e "^./vendor/") --output-file= results/cppcheck_test.txt
