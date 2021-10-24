@@ -29,13 +29,17 @@
  * 
  */
 #include "Robot.h"
+vector<int> Robot::net_input_shape = {416, 416};
+double Robot::height_of_human = 171.45;
 /**
  * @brief Construct a new Robot:: Robot object
  * 
  * @param transformation_matrix 
  */
-Robot::Robot(Eigen::Matrix4d transformation_matrix) {
+Robot::Robot(Eigen::Matrix4d transformation_matrix,
+    double f_length) {
     transformation_cr = transformation_matrix;
+    focal_length = f_length;
 }
 /**
  * @brief prepFrame : Pre processing of the camera frame

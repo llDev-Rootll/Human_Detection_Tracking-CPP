@@ -57,7 +57,7 @@ class Robot {
     vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
     double calculateDepth(Rect bbox_coords);
  private:
-    vector<int> net_input_shape = {416, 416};
+    static vector<int> net_input_shape;
     Matrix4d transformation_cr = Matrix4d::Random();
     Mat prepFrame(Mat frame);
     double focal_length;
