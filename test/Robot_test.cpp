@@ -48,7 +48,7 @@ TEST(Robot, load_network) {
 TEST(Robot, test_robot_prepframe) {
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking prepframe functionality: "<< std::endl;
-  
+
 	const char* str = "../assets/test.jpeg"; 
 	Mat frame = cv::imread(str);
 
@@ -57,4 +57,11 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   EXPECT_EQ(3, blob.size[1]);
   EXPECT_EQ(416, blob.size[2]);
   EXPECT_EQ(416, blob.size[3]);
+}
+
+TEST(Robot, test_network_size) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking network input shape: "<< std::endl;
+  EXPECT_EQ(416, test_bot.getShape()[0]);
+  EXPECT_EQ(416, test_bot.getShape()[1]);
 }
