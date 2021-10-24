@@ -44,11 +44,17 @@ class Robot {
     /**
      * @brief detectHumans : Main method for human detection
      */
-    int detectHumans(Mat frame, Net net);
+    vector<Rect> detectHumans(Mat frame, Net net);
     Net loadNetwork(string model_config, string model_weights);
     // A constructor
     explicit Robot(Matrix4d transformation_matrix);
-    
+     /**
+     * @brief transformToRobotFrame
+     * 
+     * @param bbox_coords : location of each human in camera reference frame
+     * @return vector<double> : location of each human in robot reference frame
+     */
+    vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
  private:
     vector<int> net_input_shape = {416, 416};
     string path_to_model_weights = "../network/yolov3.weights";
@@ -56,20 +62,7 @@ class Robot {
     Matrix4d transformation_cr = Matrix4d::Random();
     double pixel_to_meter = 0;
     double area_to_depth = 0;
-    /**
-     * @brief prepFrame : Pre processing of the camera frame
-     * 
-     * @param frame : Current Camera frame
-     * @return Mat : processed camera frame, ready for detection
-     */
     Mat prepFrame(Mat frame);
-    // Add double pixel_to_meter, double area_to_depth) parameters
-    /**
-     * @brief transformToRobotFrame
-     * 
-     * @param bbox_coords : location of each human in camera reference frame
-     * @return vector<double> : location of each human in robot reference frame
-     */
-    vector<double> transformToRobotFrame(vector<Rect> bbox_coords);
+    
 };
 #endif  // INCLUDE_ROBOT_H_

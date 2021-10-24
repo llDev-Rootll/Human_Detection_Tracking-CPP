@@ -65,39 +65,50 @@ Mat Robot::prepFrame(Mat frame) {
  * @param bbox_coords : location of each human in camera reference frame
  * @return vector<double> : location of each human in robot reference frame
  */
-vector<double> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
+vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
     // Initialize the position vectors
     Vector4d max_location      = Vector4d::Random();
     Vector4d min_location      = Vector4d::Random();
+    // Kept as 1 for testing purposes
+    double depth=1;
+    double pix_to_cm = height_of_human/pixel_height_of_human;
+    Eigen::Vector4d top_left;
+    Eigen::Vector4d bottom_right;
+    std::vector<double> top_left_vector;
+    std::vector<double> bottom_right_vector;
+    std::vector<Rect> final;
+    final.clear();
     // Get number of detections
     int number_of_boxes = bbox_coords.size();
-    std::cout << "Number of boxes detected: " << number_of_boxes << std::endl;
+    // std::cout<<"no. of people detected: "<<number_of_boxes<<std::endl;
     // Iterate through the detection to get coordinates w.r.t robot frame
     for (int i = 0; i < number_of_boxes; i++) {
+        // std::cout << "For detection: " << i << std::endl;
         // Create a rect for each detection
-        Rect box = bbox_coords[number_of_boxes];
-        std::cout << box.x << box.y << box.width << box.height << std::endl;
+        Rect box = bbox_coords[i];
+        // depth = calculateDepth(box);
         // Feed bounding box coordinates in vector of 4x1
-        max_location << 1, box.x, box.y, 1;
-        min_location << 1, box.width, box.height, 1;
+        // Top left camera ref frame
+        max_location << depth, box.x*pix_to_cm, box.y*pix_to_cm, 1;
+        // Bottom right camera ref frame
+        min_location << depth, box.width*pix_to_cm, box.height*pix_to_cm, 1;
         /**
          *Calculate location of point wrt robot 
          *frame using transformation matrix
          */
-        Eigen::Vector4d top_left = transformation_cr * max_location;
-        std::cout << "Top Left: " << top_left[0] << top_left[1] << top_left[2]
-        << top_left[3] << std::endl;
-        Eigen::Vector4d bottom_right = transformation_cr * min_location;
-        std::cout << "Bottom Right: " << bottom_right[0] << bottom_right[1]
-        << bottom_right[2] << bottom_right[3] << std::endl;
+        top_left = transformation_cr * max_location;
+        bottom_right = transformation_cr * min_location;
+
+        // Append the position vectors in the main vector
+        final.push_back(Rect(top_left[0], top_left[1], top_left[2], top_left[3]));
+        final.push_back(Rect(bottom_right[0],bottom_right[1], bottom_right[2], bottom_right[3]));
     }
-    vector<double> dummy;
-    return dummy;
+    return final;
 }
 /**
  * @brief detectHumans : Main method for human detection
  */
-int Robot::detectHumans(Mat frame, Net net) {
+vector<Rect> Robot::detectHumans(Mat frame, Net net) {
     HumanDetector hooman;
     vector<Rect> bbox;
     vector<Mat> outs;
@@ -112,8 +123,6 @@ int Robot::detectHumans(Mat frame, Net net) {
         // Get bounding boxes dimentions and locations
         bbox = hooman.postProcess(frame, outs);
         // Testing out transformation matrix
-        vector<Rect> dummy = {Rect(10, 20, 30, 1)};
-        transformToRobotFrame(dummy);
-
-    return 0;
-} 
+       human_locations = transformToRobotFrame(bbox);
+    return human_locations;
+}
