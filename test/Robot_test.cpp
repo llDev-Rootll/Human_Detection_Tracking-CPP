@@ -29,14 +29,11 @@
  * 
  */
 #include <gtest/gtest.h>
-#include "Robot.h"
+#include <fstream>
+#include <iostream>
 
-TEST(HumanDetector, test_human_detector_dummy) {
-  EXPECT_TRUE(true);
-}
 
-TEST(Robot, test_robot_prepframe) {
-  Robot bot(Eigen::Matrix4d::Random());
-  std::cout << "Checking detectHuman functionality: " << "\n"<< std::endl;
-  EXPECT_TRUE(true);
+TEST(Robot, test_robot_dummy) {
+  
+  ASSERT_TRUE(true);
 }
