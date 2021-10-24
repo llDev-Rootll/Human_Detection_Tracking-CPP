@@ -27,7 +27,7 @@ sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev l
 
 # sudo make install
 sudo apt-get install libopencv-dev libopencv-contrib-dev
-sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+# sudo sh -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
 sudo ldconfig
 cd ../../
 sudo rm -rf opencv-4.5.1
