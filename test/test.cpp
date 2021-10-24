@@ -29,7 +29,7 @@
  * 
  */
 #include <gtest/gtest.h>
-#include "test_Robot.h"
+#include "Robot.h"
 
 TEST(HumanDetector, test_human_detector_dummy) {
   EXPECT_TRUE(true);
