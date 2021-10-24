@@ -107,7 +107,7 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   Mat frame = cv::imread(str);
     Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-  EXPECT_EQ(8, test_bot.detectHumans(frame, net).size());
+  EXPECT_EQ(2, test_bot.detectHumans(frame, net).size());
 }
 
 TEST(Robot, test_calculate_depth) {

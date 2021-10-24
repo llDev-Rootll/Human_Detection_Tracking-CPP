@@ -112,5 +112,5 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   vector<Mat> outs = test_hooman.detection(net, blob);
   // Run the detection model and get the data for detected 
 
-  EXPECT_EQ(4, test_hooman.postProcess(frame, outs).size());
+  EXPECT_EQ(1, test_hooman.postProcess(frame, outs).size());
 }
