@@ -65,3 +65,15 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   EXPECT_EQ(416, test_bot.getShape()[0]);
   EXPECT_EQ(416, test_bot.getShape()[1]);
 }
+
+TEST(Robot, test_set_transformation_matrix) {
+Robot test_bot(Eigen::Matrix4d::Identity());
+  std::cout << "Checking transformation matrix: "<< std::endl;
+  Matrix4d test_matrix;
+  test_matrix <<  1, 2, 3, 0,
+                  4, 5, 6, 0,
+                  7, 8, 9, 0,
+                  7, 8, 9, 0;
+  ASSERT_NO_THROW(test_bot.setTransformationMatrix(test_matrix));
+  ASSERT_EQ(test_matrix(0), test_bot.getTransformationMatrix()(0));
+}
