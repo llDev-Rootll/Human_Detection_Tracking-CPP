@@ -41,6 +41,12 @@ Robot::Robot(Eigen::Matrix4d transformation_matrix,
     transformation_cr = transformation_matrix;
     focal_length = f_length;
 }
+void Robot::setFocalLength(double f) {
+    focal_length = f;
+}
+double Robot::getFocalLength() {
+    return focal_length;
+}
 /**
  * @brief prepFrame : Pre processing of the camera frame
  * 
