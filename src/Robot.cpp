@@ -46,7 +46,6 @@ double Robot::height_of_human = 171.45;
  */
 Robot::Robot(Eigen::Matrix4d transformation_matrix,
  double f_length, double p_height_of_human) {
-
     transformation_cr = transformation_matrix;
     focal_length = f_length;
     pixel_height_of_human = p_height_of_human;
@@ -180,7 +179,7 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
         // Append the position vectors in the main vector
         final.push_back(Rect(top_left[0], top_left[1],
          top_left[2], top_left[3]));
-        final.push_back(Rect(bottom_right[0], bottom_right[1],
+        final.push_back(Rect(top_left[0], bottom_right[1],
          bottom_right[2], bottom_right[3]));
     }
     return final;
