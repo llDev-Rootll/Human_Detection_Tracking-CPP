@@ -21,7 +21,8 @@
 /**
  * @file HumanDetector.cpp
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
- * @brief 
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
+ * @brief Class for Detecting humans and getting required data
  * @version 0.1
  * @date 2021-10-14
  * 
@@ -29,6 +30,65 @@
  * 
  */
 #include "HumanDetector.h"
+
+// Define static variables
+int HumanDetector::human_detection_label = 0;
+
+/**
+ * @brief Construct a new Human Detector:: Human Detector object
+ *        Set the thresholds for detection
+ * 
+ * @param conf_th : Confidence threshold value
+ * @param nms_th : NMS threshold value
+ */
+HumanDetector::HumanDetector(float conf_th, float nms_th) {
+    setConfidenceThreshold(conf_th);
+    setNmsThreshold(nms_th);
+}
+
+/**
+ * @brief Set confidence threshold for detection of humans
+ * 
+ * @param conf_th : The value of confidence threshold
+ */
+void HumanDetector::setConfidenceThreshold(double conf_th) {
+    confidence_threshold = conf_th;
+    if (confidence_threshold < 0) {
+        string arg = "confidence_threshold cannot be less than 0";
+        throw std::invalid_argument(arg);
+    }
+}
+
+/**
+ * @brief Read the confidence threshold set in the API
+ * 
+ * @return double : Confidence threshold
+ */
+double HumanDetector::getConfidenceThreshold() {
+    return confidence_threshold;
+}
+
+/**
+ * @brief Set Non-maximum suppression threshold for detection of humans
+ * 
+ * @param nms_th : The value of Non-maximum suppression threshold
+ */
+void HumanDetector::setNmsThreshold(double nms_th) {
+    nms_threshold = nms_th;
+    if (nms_threshold < 0) {
+        throw std::invalid_argument("nms_threshold cannot be less than 0");
+    }
+}
+
+/**
+ * @brief Read the Non-maximum suppression threshold set in the API
+ * 
+ * @return double : Non-maximum suppression threshold
+ */
+double HumanDetector::getNmsThreshold() {
+    return nms_threshold;
+}
+
 /**
  * @brief detection : Runs the neural network to detect humans.
  * 
@@ -43,6 +103,7 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
     net.forward(outs, getOutputsNames(net));
     return outs;
 }
+
 /**
  * @brief postProcess : Performs confidence thresholding and
  * non-max suppression.
@@ -91,9 +152,12 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
     cv::dnn::NMSBoxes(boxes, confidences,
         confidence_threshold, nms_threshold, indices);
     // Draw bounding boxes and give labels
+        vector<Rect> bboxes;
+        bboxes.clear();
     for (size_t i = 0; i < indices.size(); ++i) {
         int idx = indices[i];
         Rect box = boxes[idx];
+        bboxes.push_back(box);
         drawBoundingBoxes(confidences[idx], box.x, box.y,
                  box.x + box.width, box.y + box.height, frame, i);
     }
@@ -101,7 +165,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
      * Later, it should return the x-axis of the bounding boxes for depth
      * for transformation
      */
-    return boxes;
+    return bboxes;
 }
 
 /**
@@ -109,11 +173,11 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
  *                            human detected in frame.
  * 
  * @param confidence : Confidence for each detection
- * @param left : bounding box dimension
- * @param top  : bounding box dimension
- * @param right  : bounding box dimension
- * @param bottom  : bounding box dimension
- * @param frame  : Current camera frame
+ * @param left       : bounding box dimension
+ * @param top        : bounding box dimension
+ * @param right      : bounding box dimension
+ * @param bottom     : bounding box dimension
+ * @param frame      : Current camera frame
  * @param human_number : Number of humans detected
  * @return int : flag for indication
  */
@@ -121,7 +185,7 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
            int right, int bottom, Mat& frame, int human_number) {
      // Draw a rectangle displaying the bounding box
     cv::rectangle(frame, cv::Point(left, top),
-     cv::Point(right, bottom), cv::Scalar(255, 178, 50), 3);
+     cv::Point(right, bottom), cv::Scalar(0, 0, 255), 3);
     // Get the label for the class name and its confidence
     string label = cv::format("%.2f", confidence);
     label = "Human number : " +  std::to_string(human_number + 1) +
@@ -134,17 +198,18 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
     cv::rectangle(frame, cv::Point(left,
      top - std::round(1.5 * labelSize.height)),
      cv::Point(left + std::round(1.5 * labelSize.width), top + baseLine),
-     cv::Scalar(255, 255, 255), cv::FILLED);
+     cv::Scalar(0, 0, 255), cv::FILLED);
 
     cv::putText(frame, label, cv::Point(left, top),
      cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0, 0, 0), 1);
     return 0;
 }
+
 /**
  * @brief Get the Outputs Names object
  * 
- * @param net 
- * @return vector<string> 
+ * @param net : Network to be used for detection
+ * @return vector<string> : The names of output names
  */
 vector<string> HumanDetector::getOutputsNames(const Net& net) {
     static vector<string> names;

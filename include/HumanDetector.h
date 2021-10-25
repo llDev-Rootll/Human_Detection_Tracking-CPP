@@ -23,6 +23,7 @@
 /**
  * @file HumanDetector.h
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
  * @brief 
  * @version 0.1
  * @date 2021-10-14
@@ -44,30 +45,57 @@ using cv::Mat;
 using cv::dnn::Net;
 using cv::Rect;
 using cv::Size;
+
 /**
  * @brief HumanDetector Class
  * A class for human detection and drawing bounding boxes 
  */
 class HumanDetector {
- private:
-    float confidence_threshold = 0.5;
-    float nms_threshold = 0.4;
-    /**
-     * @brief Get the Outputs Names object
-     * 
-     * @param net 
-     * @return vector<string> 
-     */
-    vector<string> getOutputsNames(const Net& net);
-
  public:
- /**
-  * @brief detection : Runs the neural network to detect humans.
-  * 
-  * @param net : DNN network object
-  * @param blob : A 4D matrix
-  * @return vector<Mat> A matrix with bounding boxes and scores
-  */
+    /**
+     * @brief Construct a new Human Detector:: Human Detector object
+     *        Set the thresholds for detection
+     * 
+     * @param conf_th : Confidence threshold value
+     * @param nms_th : NMS threshold value
+     */
+    explicit HumanDetector(float conf_th = 0.6, float nms_th = 0.4);
+
+    /**
+     * @brief Set confidence threshold for detection of humans
+     * 
+     * @param conf_th : The value of confidence threshold
+     */
+    void setConfidenceThreshold(double conf_th);
+
+    /**
+     * @brief Read the confidence threshold set in the API
+     * 
+     * @return double : Confidence threshold
+     */
+    double getConfidenceThreshold();
+
+    /**
+     * @brief Set Non-maximum suppression threshold for detection of humans
+     * 
+     * @param nms_th : The value of Non-maximum suppression threshold
+     */
+    void setNmsThreshold(double nms_th);
+
+    /**
+     * @brief Read the Non-maximum suppression threshold set in the API
+     * 
+     * @return double : Non-maximum suppression threshold
+     */
+    double getNmsThreshold();
+
+    /**
+     * @brief detection : Runs the neural network to detect humans.
+     * 
+     * @param net : DNN network object
+     * @param blob : A 4D matrix
+     * @return vector<Mat> A matrix with bounding boxes and scores
+     */
     vector<Mat> detection(Net& net,  Mat& blob);
 
     /**
@@ -80,20 +108,34 @@ class HumanDetector {
      *                        boxes for each human detected in frame.
      */
     vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
+
     /**
      * @brief drawBoundingBoxes : Draws bouding boxes around each 
      *                            human detected in frame.
      * 
      * @param confidence : Confidence for each detection
-     * @param left : bounding box dimension
-     * @param top  : bounding box dimension
-     * @param right  : bounding box dimension
-     * @param bottom  : bounding box dimension
-     * @param frame  : Current camera frame
+     * @param left       : bounding box dimension
+     * @param top        : bounding box dimension
+     * @param right      : bounding box dimension
+     * @param bottom     : bounding box dimension
+     * @param frame      : Current camera frame
      * @param human_number : Number of humans detected
      * @return int : flag for indication
      */
     int drawBoundingBoxes(double confidence, int left, int top,
       int right, int bottom, Mat& frame, int human_number);
+
+    /**
+     * @brief Get the Outputs Names object
+     * 
+     * @param net : Network to be used for detection
+     * @return vector<string> : The names of output names
+     */
+    vector<string> getOutputsNames(const Net& net);
+
+ private:
+    double confidence_threshold;
+    double nms_threshold;
+    static int human_detection_label;
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_

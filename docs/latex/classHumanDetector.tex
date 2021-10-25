@@ -1,0 +1,208 @@
+\hypertarget{classHumanDetector}{}\section{Human\+Detector Class Reference}
+\label{classHumanDetector}\index{Human\+Detector@{Human\+Detector}}
+
+
+\hyperlink{classHumanDetector}{Human\+Detector} Class A class for human detection and drawing bounding boxes.  
+
+
+
+
+{\ttfamily \#include $<$Human\+Detector.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classHumanDetector_a6a814e1705029576a7cb57a5727482e7}{Human\+Detector} (float conf\+\_\+th=0.\+6, float nms\+\_\+th=0.\+4)
+\begin{DoxyCompactList}\small\item\em Construct a new Human Detector\+:\+: Human Detector object Set the thresholds for detection. \end{DoxyCompactList}\item 
+void \hyperlink{classHumanDetector_aef7db39618f879d6e531e1f681553584}{set\+Confidence\+Threshold} (double conf\+\_\+th)
+\begin{DoxyCompactList}\small\item\em Set confidence threshold for detection of humans. \end{DoxyCompactList}\item 
+double \hyperlink{classHumanDetector_ae4d532d10e125e6f09f75896ddf37616}{get\+Confidence\+Threshold} ()
+\begin{DoxyCompactList}\small\item\em Read the confidence threshold set in the A\+PI. \end{DoxyCompactList}\item 
+void \hyperlink{classHumanDetector_a2120c8b55ea174c3742573ef9ed4549f}{set\+Nms\+Threshold} (double nms\+\_\+th)
+\begin{DoxyCompactList}\small\item\em Set Non-\/maximum suppression threshold for detection of humans. \end{DoxyCompactList}\item 
+double \hyperlink{classHumanDetector_a74f85f00e46601ceb2d6942e7ecf41eb}{get\+Nms\+Threshold} ()
+\begin{DoxyCompactList}\small\item\em Read the Non-\/maximum suppression threshold set in the A\+PI. \end{DoxyCompactList}\item 
+vector$<$ Mat $>$ \hyperlink{classHumanDetector_a54b25d621a57b068d4e069ce68ad944e}{detection} (Net \&net, Mat \&blob)
+\begin{DoxyCompactList}\small\item\em detection \+: Runs the neural network to detect humans. \end{DoxyCompactList}\item 
+vector$<$ Rect $>$ \hyperlink{classHumanDetector_a2246eb43446bfb27f8af71842b0e8215}{post\+Process} (Mat \&frame, const vector$<$ Mat $>$ \&outs)
+\begin{DoxyCompactList}\small\item\em post\+Process \+: Performs confidence thresholding and non-\/max suppression. \end{DoxyCompactList}\item 
+int \hyperlink{classHumanDetector_a798818fd11991551c1c6a68ae13f6321}{draw\+Bounding\+Boxes} (double confidence, int left, int top, int right, int bottom, Mat \&frame, int human\+\_\+number)
+\begin{DoxyCompactList}\small\item\em draw\+Bounding\+Boxes \+: Draws bouding boxes around each human detected in frame. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \hyperlink{classHumanDetector_a0f42d17cfa9381ce20224fe3ffd25f28}{get\+Outputs\+Names} (const Net \&net)
+\begin{DoxyCompactList}\small\item\em Get the Outputs Names object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classHumanDetector}{Human\+Detector} Class A class for human detection and drawing bounding boxes. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHumanDetector_a6a814e1705029576a7cb57a5727482e7}\label{classHumanDetector_a6a814e1705029576a7cb57a5727482e7}} 
+\index{Human\+Detector@{Human\+Detector}!Human\+Detector@{Human\+Detector}}
+\index{Human\+Detector@{Human\+Detector}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{Human\+Detector()}{HumanDetector()}}
+{\footnotesize\ttfamily Human\+Detector\+::\+Human\+Detector (\begin{DoxyParamCaption}\item[{float}]{conf\+\_\+th = {\ttfamily 0.6},  }\item[{float}]{nms\+\_\+th = {\ttfamily 0.4} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new Human Detector\+:\+: Human Detector object Set the thresholds for detection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em conf\+\_\+th} & \+: Confidence threshold value \\
+\hline
+{\em nms\+\_\+th} & \+: N\+MS threshold value \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classHumanDetector_a54b25d621a57b068d4e069ce68ad944e}\label{classHumanDetector_a54b25d621a57b068d4e069ce68ad944e}} 
+\index{Human\+Detector@{Human\+Detector}!detection@{detection}}
+\index{detection@{detection}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{detection()}{detection()}}
+{\footnotesize\ttfamily vector$<$ Mat $>$ Human\+Detector\+::detection (\begin{DoxyParamCaption}\item[{Net \&}]{net,  }\item[{Mat \&}]{blob }\end{DoxyParamCaption})}
+
+
+
+detection \+: Runs the neural network to detect humans. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em net} & \+: D\+NN network object \\
+\hline
+{\em blob} & \+: A 4D matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+Mat$>$ A matrix with bounding boxes and scores 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classHumanDetector_a798818fd11991551c1c6a68ae13f6321}\label{classHumanDetector_a798818fd11991551c1c6a68ae13f6321}} 
+\index{Human\+Detector@{Human\+Detector}!draw\+Bounding\+Boxes@{draw\+Bounding\+Boxes}}
+\index{draw\+Bounding\+Boxes@{draw\+Bounding\+Boxes}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{draw\+Bounding\+Boxes()}{drawBoundingBoxes()}}
+{\footnotesize\ttfamily int Human\+Detector\+::draw\+Bounding\+Boxes (\begin{DoxyParamCaption}\item[{double}]{confidence,  }\item[{int}]{left,  }\item[{int}]{top,  }\item[{int}]{right,  }\item[{int}]{bottom,  }\item[{Mat \&}]{frame,  }\item[{int}]{human\+\_\+number }\end{DoxyParamCaption})}
+
+
+
+draw\+Bounding\+Boxes \+: Draws bouding boxes around each human detected in frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em confidence} & \+: Confidence for each detection \\
+\hline
+{\em left} & \+: bounding box dimension \\
+\hline
+{\em top} & \+: bounding box dimension \\
+\hline
+{\em right} & \+: bounding box dimension \\
+\hline
+{\em bottom} & \+: bounding box dimension \\
+\hline
+{\em frame} & \+: Current camera frame \\
+\hline
+{\em human\+\_\+number} & \+: Number of humans detected \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+: flag for indication 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classHumanDetector_ae4d532d10e125e6f09f75896ddf37616}\label{classHumanDetector_ae4d532d10e125e6f09f75896ddf37616}} 
+\index{Human\+Detector@{Human\+Detector}!get\+Confidence\+Threshold@{get\+Confidence\+Threshold}}
+\index{get\+Confidence\+Threshold@{get\+Confidence\+Threshold}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{get\+Confidence\+Threshold()}{getConfidenceThreshold()}}
+{\footnotesize\ttfamily double Human\+Detector\+::get\+Confidence\+Threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the confidence threshold set in the A\+PI. 
+
+\begin{DoxyReturn}{Returns}
+double \+: Confidence threshold 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classHumanDetector_a74f85f00e46601ceb2d6942e7ecf41eb}\label{classHumanDetector_a74f85f00e46601ceb2d6942e7ecf41eb}} 
+\index{Human\+Detector@{Human\+Detector}!get\+Nms\+Threshold@{get\+Nms\+Threshold}}
+\index{get\+Nms\+Threshold@{get\+Nms\+Threshold}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{get\+Nms\+Threshold()}{getNmsThreshold()}}
+{\footnotesize\ttfamily double Human\+Detector\+::get\+Nms\+Threshold (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the Non-\/maximum suppression threshold set in the A\+PI. 
+
+\begin{DoxyReturn}{Returns}
+double \+: Non-\/maximum suppression threshold 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classHumanDetector_a0f42d17cfa9381ce20224fe3ffd25f28}\label{classHumanDetector_a0f42d17cfa9381ce20224fe3ffd25f28}} 
+\index{Human\+Detector@{Human\+Detector}!get\+Outputs\+Names@{get\+Outputs\+Names}}
+\index{get\+Outputs\+Names@{get\+Outputs\+Names}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{get\+Outputs\+Names()}{getOutputsNames()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Human\+Detector\+::get\+Outputs\+Names (\begin{DoxyParamCaption}\item[{const Net \&}]{net }\end{DoxyParamCaption})}
+
+
+
+Get the Outputs Names object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em net} & \+: Network to be used for detection \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$string$>$ \+: The names of output names 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classHumanDetector_a2246eb43446bfb27f8af71842b0e8215}\label{classHumanDetector_a2246eb43446bfb27f8af71842b0e8215}} 
+\index{Human\+Detector@{Human\+Detector}!post\+Process@{post\+Process}}
+\index{post\+Process@{post\+Process}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{post\+Process()}{postProcess()}}
+{\footnotesize\ttfamily vector$<$ Rect $>$ Human\+Detector\+::post\+Process (\begin{DoxyParamCaption}\item[{Mat \&}]{frame,  }\item[{const vector$<$ Mat $>$ \&}]{outs }\end{DoxyParamCaption})}
+
+
+
+post\+Process \+: Performs confidence thresholding and non-\/max suppression. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & \+: Current camera frame \\
+\hline
+{\em outs} & \+: A matrix with bounding boxes and scores \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+Rect$>$ \+: Dimensions of the bounding boxes for each human detected in frame. 
+\end{DoxyReturn}
+Later, it should return the x-\/axis of the bounding boxes for depth for transformation\mbox{\Hypertarget{classHumanDetector_aef7db39618f879d6e531e1f681553584}\label{classHumanDetector_aef7db39618f879d6e531e1f681553584}} 
+\index{Human\+Detector@{Human\+Detector}!set\+Confidence\+Threshold@{set\+Confidence\+Threshold}}
+\index{set\+Confidence\+Threshold@{set\+Confidence\+Threshold}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{set\+Confidence\+Threshold()}{setConfidenceThreshold()}}
+{\footnotesize\ttfamily void Human\+Detector\+::set\+Confidence\+Threshold (\begin{DoxyParamCaption}\item[{double}]{conf\+\_\+th }\end{DoxyParamCaption})}
+
+
+
+Set confidence threshold for detection of humans. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em conf\+\_\+th} & \+: The value of confidence threshold \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classHumanDetector_a2120c8b55ea174c3742573ef9ed4549f}\label{classHumanDetector_a2120c8b55ea174c3742573ef9ed4549f}} 
+\index{Human\+Detector@{Human\+Detector}!set\+Nms\+Threshold@{set\+Nms\+Threshold}}
+\index{set\+Nms\+Threshold@{set\+Nms\+Threshold}!Human\+Detector@{Human\+Detector}}
+\subsubsection{\texorpdfstring{set\+Nms\+Threshold()}{setNmsThreshold()}}
+{\footnotesize\ttfamily void Human\+Detector\+::set\+Nms\+Threshold (\begin{DoxyParamCaption}\item[{double}]{nms\+\_\+th }\end{DoxyParamCaption})}
+
+
+
+Set Non-\/maximum suppression threshold for detection of humans. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nms\+\_\+th} & \+: The value of Non-\/maximum suppression threshold \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{HumanDetector_8h}{Human\+Detector.\+h}\item 
+src/\hyperlink{HumanDetector_8cpp}{Human\+Detector.\+cpp}\end{DoxyCompactItemize}

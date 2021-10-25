@@ -3,10 +3,7 @@ Done processing ./include/HumanDetector.h
 Done processing ./include/Robot.h
 Done processing ./src/HumanDetector.cpp
 Done processing ./src/Robot.cpp
-Done processing ./test/include/test_HumanDetector.h
-Done processing ./test/include/test_Robot.h
+Done processing ./test/HumanDetector_test.cpp
+Done processing ./test/Robot_test.cpp
 Done processing ./test/main.cpp
-Done processing ./test/src/test_HumanDetector.cpp
-Done processing ./test/src/test_Robot.cpp
-Done processing ./test/test.cpp
-Total errors found: 8
+Total errors found: 4
