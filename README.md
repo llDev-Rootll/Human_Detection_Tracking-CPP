@@ -57,6 +57,30 @@ The following shows the activity diagram for our proposed schema :
 *Fig 1 :  Activity Diagram*
 
 The corresponding class diagram can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/development/UML/revised/Revised_Class_Diagram.pdf).
+
+## Output Data Explained
+At the output of the Human Detection module from the `detectHumans` method we get a vector of Rects ('Rect' is a data type in OpenCV). 
+
+The structure of Rect is: (x, y, z, redundant); It has four parameters, 
+the first three parameters indicate the coordinates of a point in terms of robot's reference frame (x, y, z)
+
+These coordinates can be extracted from the Rect and used as per application.
+The redundant variable is part of the transformation vector which is not useful for us for showing the location of the human detected.
+
+For each person detected in frame, two Rects are created. We are taking two location points of each human detected. To get an estimated location of the human in the entire frame, we need to extract the x, y, z coordinates from both the Rects created where, 
+x is the distance of the human from the robot's reference frame, 
+y is the horizontal component and 
+z is the  vertical component.
+
+Example:
+If there are two humans detected in a frame, then we will get a vector of four Rects. Consider the output vector variable we got is 'positions'. Size of positions is 4 since in our example 2 humans are detected, then, first human's location will be extracted from Rects positions[0] and positions[1]
+second human's location will be extracted from Rects positions[2] and positions[3]
+Example for location extraction of one of the coordinates of the first human:
+
+> 			x = position[0] (0) 			
+>         y = position[0] (1) 			
+>         z = position[0] (2)
+
 ## Steps to Run the application
 Run the following commands in the root folder to build and run the Human Detector and Tracker
 
