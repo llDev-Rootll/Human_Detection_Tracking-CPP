@@ -151,7 +151,6 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
     // Initialize the position vectors and variables
     Vector4d max_location      = Vector4d::Random();
     Vector4d min_location      = Vector4d::Random();
-    double depth;
     double pix_to_cm = height_of_human/pixel_height_of_human;
     Eigen::Vector4d top_left;
     Eigen::Vector4d bottom_right;
@@ -163,7 +162,7 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
     for (int i = 0; i < number_of_boxes; i++) {
         // Create a rect for each detection
         Rect box = bbox_coords[i];
-        depth = calculateDepth(box);
+        double depth = calculateDepth(box);
         // Feed bounding box coordinates in vector of 4x1
         // Top left camera ref frame
         max_location << depth, box.x*pix_to_cm, box.y*pix_to_cm, 1;
