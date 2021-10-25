@@ -15,16 +15,10 @@ using std::endl;
 
 int main() {
     cout << "Human Detector and Tracker" << endl;
-Eigen::Matrix4d test_matrix;
-  test_matrix <<  1, 2, 0, 0,
-                  4, 1, 0, 0,
-                  0, 0, 1, 100,
-                  0, 0, 0, 1;
-    Robot bot(test_matrix);//Eigen::Matrix4d::Identity());
+    Robot bot(Eigen::Matrix4d::Identity());
     // Load the network
     Net net = bot.loadNetwork("../network/yolov3.cfg",
     "../network/yolov3.weights");
-
     // Start video capture by activating camera
     cv::VideoCapture cap(0);
     // Test if camera is actually active or not
@@ -42,9 +36,30 @@ Eigen::Matrix4d test_matrix;
     vector<Rect> positions;
     while (true) {
         cap >> frame;
-    // const char* str = "../assets/test.jpeg";  // Lena image
-    // Mat frame = cv::imread(str);
-        bot.detectHumans(frame, net);
+        positions = bot.detectHumans(frame, net);
+        // Print positions of humans detected
+        if (positions.size() > 0) {
+            cout << "Number of people detected: " << positions.size()/2
+            << endl;
+            for (size_t i = 0; i < positions.size()/2; i++) {
+                Rect upper_bound_position = positions[i*2];
+                double x_u = upper_bound_position.x;
+                double y_u = upper_bound_position.y;
+                double z_u = upper_bound_position.width;
+
+                Rect lower_bound_position = positions[i*2+1];
+                double x_l = lower_bound_position.x;
+                double y_l = lower_bound_position.y;
+                double z_l = lower_bound_position.width;
+
+                std::cout << "For person "<< i+1 << ", Postion is: (" << x_u
+                 << ", "<< y_u <<", "<< z_u << ") and ("<<
+                 x_l << ", "<< y_l <<", "<< z_l << ")" << std::endl;
+            }
+        } else {
+            std::cout << "No person detected" << std::endl;
+        }
+        positions.clear();
         // Show the frame captured on screen
         cv::imshow(window_name, frame);
         // To get continuous live video until ctrl+C is pressed

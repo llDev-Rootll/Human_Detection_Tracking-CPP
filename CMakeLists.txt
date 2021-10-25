@@ -18,7 +18,7 @@ option(COVERAGE "Generate Coverage Data" OFF)
 if (COVERAGE)
     include(CodeCoverage)
     set(LCOV_REMOVE_EXTRA "'vendor/*'")
-    setup_target_for_coverage(code_coverage test/cpp-test coverage)
+    setup_target_for_coverage(code_coverage test/human_detector_tracker_tests coverage)
     set(COVERAGE_SRCS src/Robot.cpp src/HumanDetector.cpp include/Humandetector.h include/Rohot.h)
 
     SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
