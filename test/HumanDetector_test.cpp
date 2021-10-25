@@ -19,23 +19,23 @@
  * SOFTWARE.
  */
 /**
- * @file main.cpp
+ * @file HumanDector_test.cpp
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
- * @brief 
+ *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
+ * @brief Run unit tests for all the methods in HumanDetector class
  * @version 0.1
- * @date 2021-10-17
+ * @date 2021-10-24
  * 
  * @copyright Copyright (c) 2021
  * 
  */
 #include <gtest/gtest.h>
-#include <fstream>
-#include <iostream>
 #include "Robot.h"
 
-
-
-
+/**
+ * @brief Test case for getOutputNames by checking the names of the network output tensors
+ * 
+ */
 TEST(HumanDetector, test_network_output_tensors) {
 HumanDetector test_hooman;
 Robot test_bot(Eigen::Matrix4d::Identity());
@@ -50,29 +50,29 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   EXPECT_EQ("yolo_106", names[2]);
 }
 
+/**
+ * @brief Test case for detection method which checks the dimensions of the network output.
+ */
 TEST(HumanDetector, test_detection) {
   HumanDetector test_hooman;
   Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking detection functionality: "<< std::endl;
   const char* path_to_model_congfiguration = "../network/yolov3.cfg";
   const char* path_to_model_weights = "../network/yolov3.weights";
-
-  const char* str = "../assets/test.jpeg"; 
+  const char* str = "../assets/test.jpeg";
   Mat frame = cv::imread(str);
-
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
-
-
-  Mat blob = test_bot.prepFrame(frame);  // Check size of returned
-  // Run the detection model and get the data for detected humans
-  vector<Mat> outs;
-  outs = test_hooman.detection(net, blob);
+  Mat blob = test_bot.prepFrame(frame);
+  vector<Mat> outs = test_hooman.detection(net, blob);
   EXPECT_EQ(3, outs.size());
   EXPECT_EQ(507, outs[0].rows);
   EXPECT_EQ(85, outs[1].cols);
 }
 
+/**
+ * @brief Test cases for setter and getter of confidence threshold
+ */
 TEST(HumanDetector, test_conf_threshold) {
 HumanDetector test_hooman;
   std::cout << "Checking confidence threshold setter: "<< std::endl;
@@ -81,6 +81,9 @@ HumanDetector test_hooman;
   ASSERT_EQ(0.88, test_hooman.getConfidenceThreshold());
 }
 
+/**
+ * @brief Test cases for setter and getter of NMS threshold
+ */
 TEST(HumanDetector, test_nms_threshold) {
 HumanDetector test_hooman;
   std::cout << "Checking nms threshold setter: "<< std::endl;
@@ -89,6 +92,9 @@ HumanDetector test_hooman;
   ASSERT_EQ(0.99, test_hooman.getNmsThreshold());
 }
 
+/**
+ * @brief Test cases for invalid thresholding error throw
+ */
 TEST(HumanDetector, test_invalid_thresholds) {
   std::cout << "Checking invalid theshold exception catches: "<< std::endl;
   HumanDetector invalid_thresh;
@@ -97,20 +103,20 @@ TEST(HumanDetector, test_invalid_thresholds) {
    std::invalid_argument);
 }
 
+/**
+ * @brief Test case for checking postprocess methods by checking the number of humans detected
+ */
 TEST(HumanDetector, test_postprocess) {
 HumanDetector test_hooman;
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking post process functionality: "<< std::endl;
   const char* path_to_model_congfiguration = "../network/yolov3.cfg";
   const char* path_to_model_weights = "../network/yolov3.weights";
-
-  const char* str = "../assets/test.jpeg"; 
+  const char* str = "../assets/test.jpeg";
   Mat frame = cv::imread(str);
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
-  Mat blob = test_bot.prepFrame(frame);  // Check size of returned
+  Mat blob = test_bot.prepFrame(frame);
   vector<Mat> outs = test_hooman.detection(net, blob);
-  // Run the detection model and get the data for detected 
-
   EXPECT_EQ(1, test_hooman.postProcess(frame, outs).size());
 }

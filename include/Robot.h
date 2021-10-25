@@ -36,26 +36,106 @@
 #include <string>
 using Eigen::Matrix4d;
 using Eigen::Vector4d;
+
 /**
- * @brief 
- * 
+ * @brief Robot class
  */
 class Robot {
  public:
-    // A constructor
+    /**
+     * @brief Construct a new Robot:: Robot object
+     * 
+     * @param transformation_matrix : The transformation matrix for
+     *                                getting the location of human detected from camera's
+     *                                reference frame to robot's reference frame.
+     * @param f_length : Focal length of the camera being using.
+     * @param pixel_height_of_human : Height of the human in pixel.
+     */
     explicit Robot(Matrix4d transformation_matrix,
     double focal_length = 984.251, double pixel_height_of_human = 672);
+
+    /**
+     * @brief Load the pre trained network using weights and configurations
+     * 
+     * @param model_config : Configuration file of the model used.
+     * @param model_weights : Pre trained weights of the model used.
+     * @return Net : Model being used.
+     */
     Net loadNetwork(string model_config, string model_weights);
-    vector<Rect> detectHumans(Mat frame, Net net);
-    Mat prepFrame(Mat frame);
+
+    /**
+     * @brief Read the focal length defined in the API.
+     * 
+     * @return double The focal length set in the API.
+     */
+    double getFocalLength();
+
+    /**
+     * @brief Set focal length of the camera being used.
+     * 
+     * @param f Focal length of the camera being used.
+     */
+    void setFocalLength(double focal_length);
+
+    /**
+     * @brief Read the size of the input used for the network
+     * 
+     * @return vector<int> : Size of the input used for the network
+     */
     vector<int> getShape();
+
+    /**
+     * @brief Set the transformation matrix for
+     *        getting the location of human detected from camera's
+     *        reference frame to robot's reference frame.
+     * 
+     * @param matrix : Transformation matrix
+     */
     void setTransformationMatrix(Eigen::Matrix4d matrix);
+
+    /**
+     * @brief Read the transformation matrix for
+     *        getting the location of human detected from camera's
+     *        reference frame to robot's reference frame.
+     * 
+     * @return Eigen::Matrix4d : Transformation matrix
+     */
     Eigen::Matrix4d getTransformationMatrix();
 
-    vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
+    /**
+     * @brief prepFrame : Pre processing of the camera frame
+     * 
+     * @param frame : Current Camera frame
+     * @return Mat : processed camera frame, ready for detection
+     */
+    Mat prepFrame(Mat frame);
+
+    /**
+     * @brief Calculate the depth of the person being detected in frame
+     * 
+     * @param bbox_coords : The 2D coordinates of the person being detected in frame
+     * @return double : the depth of the person being detected in frame
+     */
     double calculateDepth(Rect bbox_coords);
-    double getFocalLength();
-    void setFocalLength(double focal_length);
+
+    /**
+     * @brief Convert the location of human detected from camera's
+     *        reference frame to robot's reference frame.
+     * 
+     * @param bbox_coords : location of each human in camera reference frame
+     * @return vector<Rect> : location of each human in robot reference frame
+     */
+    vector<Rect> transformToRobotFrame(vector<Rect> bbox_coords);
+
+    /**
+     * @brief Detect humans in given frame and get the location
+     *        of each human in robot's reference frame
+     * 
+     * @param frame : Current Camera frame
+     * @param net : Network for detection
+     * @return vector<Rect> : Location of each human in robot's reference frame
+     */
+    vector<Rect> detectHumans(Mat frame, Net net);
 
  private:
     static vector<int> net_input_shape;

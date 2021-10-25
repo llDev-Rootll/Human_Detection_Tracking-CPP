@@ -30,12 +30,19 @@
  * 
  */
 #include "Robot.h"
+
+// Define static variables
 vector<int> Robot::net_input_shape = {416, 416};
 double Robot::height_of_human = 171.45;
+
 /**
  * @brief Construct a new Robot:: Robot object
  * 
- * @param transformation_matrix 
+ * @param transformation_matrix : The transformation matrix for
+ *                                getting the location of human detected from camera's
+ *                                reference frame to robot's reference frame.
+ * @param f_length : Focal length of the camera being using.
+ * @param pixel_height_of_human : Height of the human in pixel.
  */
 Robot::Robot(Eigen::Matrix4d transformation_matrix,
     double f_length, double p_height_of_human) {
@@ -43,17 +50,13 @@ Robot::Robot(Eigen::Matrix4d transformation_matrix,
     focal_length = f_length;
     pixel_height_of_human = p_height_of_human;
 }
-void Robot::setFocalLength(double f) {
-    focal_length = f;
-}
-double Robot::getFocalLength() {
-    return focal_length;
-}
+
 /**
- * @brief prepFrame : Pre processing of the camera frame
+ * @brief Load the pre trained network using weights and configurations
  * 
- * @param frame : Current Camera frame
- * @return Mat : processed camera frame, ready for detection
+ * @param model_config : Configuration file of the model used.
+ * @param model_weights : Pre trained weights of the model used.
+ * @return Net : Model being used.
  */
 Net Robot::loadNetwork(string model_config, string model_weights) {
     // Load the network
@@ -64,59 +67,100 @@ Net Robot::loadNetwork(string model_config, string model_weights) {
     return net;
 }
 
+/**
+ * @brief Set focal length of the camera being used.
+ * 
+ * @param f Focal length of the camera being used.
+ */
+void Robot::setFocalLength(double f) {
+    focal_length = f;
+}
+
+/**
+ * @brief Read the focal length defined in the API.
+ * 
+ * @return double The focal length set in the API.
+ */
+double Robot::getFocalLength() {
+    return focal_length;
+}
+
+/**
+ * @brief Read the size of the input used for the network
+ * 
+ * @return vector<int> : Size of the input used for the network
+ */
 vector<int> Robot::getShape() {
     return net_input_shape;
 }
 
-
+/**
+ * @brief Set the transformation matrix for
+ *        getting the location of human detected from camera's
+ *        reference frame to robot's reference frame.
+ * 
+ * @param matrix : Transformation matrix
+ */
 void Robot::setTransformationMatrix(Eigen::Matrix4d matrix) {
     transformation_cr = matrix;
 }
+
+/**
+ * @brief Read the transformation matrix for
+ *        getting the location of human detected from camera's
+ *        reference frame to robot's reference frame.
+ * 
+ * @return Eigen::Matrix4d : Transformation matrix
+ */
 Eigen::Matrix4d Robot::getTransformationMatrix() {
     return transformation_cr;
 }
 
+/**
+ * @brief prepFrame : Pre processing of the camera frame
+ * 
+ * @param frame : Current Camera frame
+ * @return Mat : processed camera frame, ready for detection
+ */
 Mat Robot::prepFrame(Mat frame) {
-    Mat blob_frame;
-    blob_frame = cv::dnn::blobFromImage(frame, 1/255.0,
+    Mat blob_frame = cv::dnn::blobFromImage(frame, 1/255.0,
      cv::Size(net_input_shape[1], net_input_shape[0]),
      cv::Scalar(0, 0, 0), true, false);
     return blob_frame;
 }
 
-double Robot::calculateDepth(Rect bbox_coords) {
-    double perceived_height = bbox_coords.height;
-    double est_depth = height_of_human * focal_length / perceived_height;
-    // std::cout << height_of_human<< std::endl;
-    // std::cout << focal_length<< std::endl;
-    // std::cout << est_depth<< std::endl;
+/**
+ * @brief Calculate the depth of the person being detected in frame
+ * 
+ * @param bbox_coords : The 2D coordinates of the person being detected in frame
+ * @return double : the depth of the person being detected in frame
+ */
+double Robot::calculateDepth(Rect coords) {
+    double est_depth = height_of_human * focal_length / coords.height;
     return est_depth;
 }
+
 /**
- * @brief transformToRobotFrame
+ * @brief Convert the location of human detected from camera's
+ *        reference frame to robot's reference frame.
  * 
  * @param bbox_coords : location of each human in camera reference frame
- * @return vector<double> : location of each human in robot reference frame
+ * @return vector<Rect> : location of each human in robot reference frame
  */
 vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
-    // Initialize the position vectors
+    // Initialize the position vectors and variables
     Vector4d max_location      = Vector4d::Random();
     Vector4d min_location      = Vector4d::Random();
-    // Kept as 1 for testing purposes
     double depth;
     double pix_to_cm = height_of_human/pixel_height_of_human;
     Eigen::Vector4d top_left;
     Eigen::Vector4d bottom_right;
-    std::vector<double> top_left_vector;
-    std::vector<double> bottom_right_vector;
     std::vector<Rect> final;
     final.clear();
     // Get number of detections
     int number_of_boxes = bbox_coords.size();
-    // std::cout<<"no. of people detected: "<<number_of_boxes<<std::endl;
     // Iterate through the detection to get coordinates w.r.t robot frame
     for (int i = 0; i < number_of_boxes; i++) {
-        // std::cout << "For detection: " << i << std::endl;
         // Create a rect for each detection
         Rect box = bbox_coords[i];
         depth = calculateDepth(box);
@@ -140,16 +184,20 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
     }
     return final;
 }
+
 /**
- * @brief detectHumans : Main method for human detection
+ * @brief Detect humans in given frame and get the location
+ *        of each human in robot's reference frame
+ * 
+ * @param frame : Current Camera frame
+ * @param net : Network for detection
+ * @return vector<Rect> : Location of each human in robot's reference frame
  */
 vector<Rect> Robot::detectHumans(Mat frame, Net net) {
     HumanDetector hooman;
     vector<Rect> bbox;
     vector<Mat> outs;
     vector<Rect> human_locations;
-    bbox.clear();
-    outs.clear();
     human_locations.clear();
         Mat blob = prepFrame(frame);
         // Run the detection model and get the data for detected humans
