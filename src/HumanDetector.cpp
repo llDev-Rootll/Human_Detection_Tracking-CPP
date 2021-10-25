@@ -22,7 +22,7 @@
  * @file HumanDetector.cpp
  * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
  *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
- * @brief 
+ * @brief Class for Detecting humans and getting required data
  * @version 0.1
  * @date 2021-10-14
  * 
