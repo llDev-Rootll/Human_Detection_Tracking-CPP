@@ -1,4 +1,5 @@
 
+
   
 # Human_Detection_Tracking-CPP
 [![Build Status](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP.svg?branch=master)](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP)
@@ -9,18 +10,27 @@ A C++ module to detect and track humans which outputs location information direc
 
 ## Authors
 Sprint 1 -
- - Arunava Basu (Navigator)
- - Aditi Ramadwar (Driver)
+ - [Arunava Basu](https://www.linkedin.com/in/abasu713/) (Navigator)
+ - [Aditi Ramadwar](https://st1.zoom.us/web_client/5g6glw/html/externalLinkPage.html?ref=https://www.linkedin.com/in/aditiramadwar/) (Driver)
 
 Sprint 2 -
- - Arunava Basu (Driver)
- - Aditi Ramadwar (Navigator)
+ - [Arunava Basu](https://www.linkedin.com/in/abasu713/) (Driver)
+ - [Aditi Ramadwar](https://st1.zoom.us/web_client/5g6glw/html/externalLinkPage.html?ref=https://www.linkedin.com/in/aditiramadwar/) (Navigator)
 ## Introduction
 Human detection or person detection is the computer vision task of the localization and classification of human being(s) in an image. This is a key part in robotic applications for various reasons such as safety, obstacle avoidance, collaborative robotics, etc. 
 
 We aim to design and deliver a robust  robust human obstacle detector and tracker using a monocular camera, directly usable in a robot’s reference frame according to the requirement specifications provided to us by ACME robotics's RnD division for integration into a future product.
 
-Our system is built using C++ and will employ the robust YOLOv3 neural network model trained on the COCO dataset for human detection and tracking as it is one of the most accurate real-time object detection algorithms. A one time calibration is performed to calculate certain calibration metrics for the transformation of location info into the camera frame. An image from a monocular camera is pre-processed and passed to the model which outputs the location info in the image frame. It is then converted to the camera frame by using the calibration constants and then transformed into the robot's frame.
+Our system is built using C++ and will employ the robust YOLOv3 neural network model trained on the COCO dataset for human detection and tracking as it is one of the most accurate real-time object detection algorithms. An image from a monocular camera is pre-processed and passed to the model which outputs the location info in the image frame. It is then converted to the camera frame by using the calibration constants and then transformed into the robot's frame.
+
+## Sample result 
+The boxes in the image frame can be seen as :
+
+<img alt="demo" src="assets/demo.png" width="75%" />
+
+The location information in the robot frame can be seen as :
+
+<img alt="demo_loc" src="assets/demo_loc.png" width="75%" />
 
 ## Project Collaterals
 The Agile Iterative Process will be used for the development of this system consisting of two sprints.
@@ -52,13 +62,21 @@ sh install_dependencies.sh
 
 ## System Architecture 
 The following shows the activity diagram for our proposed schema : 
-<img alt="activity" src="assets/activity.png" width="75%" />
+<img alt="activity" src="assets/activity_diag.png" width="75%" />
 
 *Fig 1 :  Activity Diagram*
 
 The corresponding class diagram can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/development/UML/revised/Revised_Class_Diagram.pdf).
 
-## Output Data Explained
+## Few key points in the implementation
+### Depth estimation in monocular camera
+The depth was calculated by estimating the focal length of a camera using the pixel height of a bounding box enclosing a human and considering the real-life height to be 171.45 cm which is the mean height of a person in the US. The focal length can be changed using the setter function as per need.
+
+Consequently the distance is calculated for each detected human as :
+
+    Depth = 171.45 * Estimated_focal_length / Pixel_height_of_bbox_around_a_human
+
+### Output data format explained
 At the output of the Human Detection module from the `detectHumans` method we get a vector of Rects ('Rect' is a data type in OpenCV). 
 
 The structure of Rect is: (x, y, z, redundant); It has four parameters, 
@@ -81,12 +99,13 @@ Example for location extraction of one of the coordinates of the first human:
 >         y = position[0] (1) 			
 >         z = position[0] (2)
 
-## Steps to Run the application
+## Steps to Run the demo application
 Run the following commands in the root folder to build and run the Human Detector and Tracker
 
     sh getModels.sh
     sh build_with_coverage.sh
     sh run_app.sh
+With the output window in focus, press `Esc` to terminate the application.
 
 ## Running Unit tests
 Unit Testing will be used to test each submodule and ensure complete code coverage. For this Google Gtest will be leveraged and identical test classes and methods will be created with minimal modification in order to facilitate testing.
@@ -94,6 +113,8 @@ Execute these commands in the root folder to run the test cases:
 ```
 sh run_tests.sh
 ```
+A final test case was written to check for the accuracy of detection with a certain margin of error by calculating the euclidean distance between the detected centroids and the ground truth centroids. Ground truth data was obtained by manually annotating the capture image using [Labelmg](https://github.com/tzutalin/labelImg).
+
 ## Running cpplint & cppcheck tests
 Run the following command in the root directory to generate cpplint results in **results** folder
 
@@ -116,14 +137,30 @@ sudo apt-get install lcov
 sh build_with_coverage.sh
 ```
 ## Generate Doxygen documentation
-Run the following command in the root folder:
+Run the following command in the root folder to generate the documentation in the `docs` folder:
 
     sh create_doxy_docs.sh
+## Known Issues and bugs
+
+ - Depth estimation assumes that the camera and the human are on the same plane, the human is standing upright and there is no occlusion present.
+ -  API can be made more robust by using more complex methods of depth estimation.
+ - Average human height is assumed to be 171.45 cm, which is the average in the US.
 
 ## Phase 1
 
  - Defined Robot, HumanDetector and test classes according to the UML diagrams.
  - Implemented all Robot and HumanDetector methods except for transformToRobotFrame method.
  - Definition and implementation of test cases are planned for Phase 2.
- Please refer to the backlog table, [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing), for an exhaustive list tasks completed in Phase 1.
+ Please refer to the backlog table, [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing), for an exhaustive list of tasks completed in Phase 1.
+## Phase 2
+ - Test classes created in Phase 1 were removed after careful considerations
+ - 	Setter and getter methods were created for helper functions
+ - A proper structure for testing each class was created
+ - transformToRobotFrame was implemented
+ -  A method for depth calculation was created
+ - Unit tests for all methods were created
+ -  UMLs were revised	
+ - Generated github and doxygen documentation
+ - All requirements were successfully delivered
+Please refer to the backlog table, [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing), for an exhaustive list of tasks completed in Phase 2.		
 
