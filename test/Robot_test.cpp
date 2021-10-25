@@ -131,7 +131,6 @@ Robot test_bot(Eigen::Matrix4d::Identity());
 TEST(Robot, test_calculate_depth) {
   std::cout << "Checking depth calculation: "<< std::endl;
   Robot test_bot(Eigen::Matrix4d::Identity());
-  test_bot.setFocalLength(984.251);
   Rect dummy = Rect(0, 0, 0, 672);
   EXPECT_NEAR(250.0, test_bot.calculateDepth(dummy), 5);
 }
