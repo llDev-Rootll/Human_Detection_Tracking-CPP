@@ -130,8 +130,7 @@ Robot test_bot(Eigen::Matrix4d::Identity());
  * @param y2 y co-ordinate of second point
  * @return double 
  */
-double euclidean_dist(double x1, double y1, double x2, double y2)
-{
+double euclidean_dist(double x1, double y1, double x2, double y2) {
   double x = x1 - x2;  // calculating number to square in next step
   double y = y1 - y2;
   double dist;
