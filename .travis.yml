@@ -22,11 +22,11 @@ matrix:
 
 before_install:
   - pip install --user cpp-coveralls
-  - sudo chmod a+x scripts/getModels.sh
-  - ./scripts/getModels.sh
+  - sudo chmod a+x getModels.sh
+  - ./getModels.sh
 install:
-  - sudo chmod a+x scripts/install_dependencies.sh
-  - ./scripts/install_dependencies.sh
+  - sudo chmod a+x install_dependencies.sh
+  - ./install_dependencies.sh
 script:
   - export CXX=$COMPILER;
   - mkdir build
