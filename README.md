@@ -126,4 +126,4 @@ Run the following command in the root folder:
  - Implemented all Robot and HumanDetector methods except for transformToRobotFrame method.
  - Definition and implementation of test cases are planned for Phase 2.
  Please refer to the backlog table, [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing), for an exhaustive list tasks completed in Phase 1.
-## Phase 2
+
