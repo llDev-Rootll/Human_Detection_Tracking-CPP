@@ -78,7 +78,7 @@ class HumanDetector {
     /**
      * @brief Set Non-maximum suppression threshold for detection of humans
      * 
-     * @param conf_th : The value of Non-maximum suppression threshold
+     * @param nms_th : The value of Non-maximum suppression threshold
      */
     void setNmsThreshold(double nms_th);
 

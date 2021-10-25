@@ -71,7 +71,7 @@ double HumanDetector::getConfidenceThreshold() {
 /**
  * @brief Set Non-maximum suppression threshold for detection of humans
  * 
- * @param conf_th : The value of Non-maximum suppression threshold
+ * @param nms_th : The value of Non-maximum suppression threshold
  */
 void HumanDetector::setNmsThreshold(double nms_th) {
     nms_threshold = nms_th;

@@ -49,10 +49,10 @@ class Robot {
      *                                getting the location of human detected from camera's
      *                                reference frame to robot's reference frame.
      * @param f_length : Focal length of the camera being using.
-     * @param pixel_height_of_human : Height of the human in pixel.
+     * @param p_height_of_human : Height of the human in pixel.
      */
     explicit Robot(Matrix4d transformation_matrix,
-    double focal_length = 984.251, double pixel_height_of_human = 672);
+     double f_length = 984.251, double p_height_of_human = 672);
 
     /**
      * @brief Load the pre trained network using weights and configurations
@@ -141,8 +141,8 @@ class Robot {
     static vector<int> net_input_shape;
     Matrix4d transformation_cr;
 
-    double focal_length;
+    double focal_length = 984.251;
     static double height_of_human;  // in cms
-    double pixel_height_of_human;
+    double pixel_height_of_human = 672;
 };
 #endif  // INCLUDE_ROBOT_H_

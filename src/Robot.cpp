@@ -42,10 +42,11 @@ double Robot::height_of_human = 171.45;
  *                                getting the location of human detected from camera's
  *                                reference frame to robot's reference frame.
  * @param f_length : Focal length of the camera being using.
- * @param pixel_height_of_human : Height of the human in pixel.
+ * @param p_height_of_human : Height of the human in pixel.
  */
 Robot::Robot(Eigen::Matrix4d transformation_matrix,
-    double f_length, double p_height_of_human) {
+ double f_length, double p_height_of_human) {
+
     transformation_cr = transformation_matrix;
     focal_length = f_length;
     pixel_height_of_human = p_height_of_human;
@@ -135,8 +136,8 @@ Mat Robot::prepFrame(Mat frame) {
  * @param bbox_coords : The 2D coordinates of the person being detected in frame
  * @return double : the depth of the person being detected in frame
  */
-double Robot::calculateDepth(Rect coords) {
-    double est_depth = height_of_human * focal_length / coords.height;
+double Robot::calculateDepth(Rect bbox_coords) {
+    double est_depth = height_of_human * focal_length / bbox_coords.height;
     return est_depth;
 }
 

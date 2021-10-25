@@ -1,0 +1,233 @@
+\hypertarget{classRobot}{}\section{Robot Class Reference}
+\label{classRobot}\index{Robot@{Robot}}
+
+
+\hyperlink{classRobot}{Robot} class.  
+
+
+
+
+{\ttfamily \#include $<$Robot.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRobot_ad99a1ce9846d6334c2d9e9f52bbadce2}{Robot} (Matrix4d transformation\+\_\+matrix, double f\+\_\+length=984.\+251, double p\+\_\+height\+\_\+of\+\_\+human=672)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classRobot}{Robot}\+:\+: \hyperlink{classRobot}{Robot} object. \end{DoxyCompactList}\item 
+Net \hyperlink{classRobot_a082dee8da5e4847ded0a6a1373172073}{load\+Network} (string model\+\_\+config, string model\+\_\+weights)
+\begin{DoxyCompactList}\small\item\em Load the pre trained network using weights and configurations. \end{DoxyCompactList}\item 
+double \hyperlink{classRobot_ad5b286958dbf40329f8cebdb9c9c4987}{get\+Focal\+Length} ()
+\begin{DoxyCompactList}\small\item\em Read the focal length defined in the A\+PI. \end{DoxyCompactList}\item 
+void \hyperlink{classRobot_aad2cd63f57d4feaaa7ec92f49ba72d5e}{set\+Focal\+Length} (double focal\+\_\+length)
+\begin{DoxyCompactList}\small\item\em Set focal length of the camera being used. \end{DoxyCompactList}\item 
+vector$<$ int $>$ \hyperlink{classRobot_a3a1999a77bc11f070daaa0655ddff66b}{get\+Shape} ()
+\begin{DoxyCompactList}\small\item\em Read the size of the input used for the network. \end{DoxyCompactList}\item 
+void \hyperlink{classRobot_a2362bcfbd845f451a278b3d6af907f1f}{set\+Transformation\+Matrix} (Eigen\+::\+Matrix4d matrix)
+\begin{DoxyCompactList}\small\item\em Set the transformation matrix for getting the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix4d \hyperlink{classRobot_a0034f52a4daac582470860655f38f734}{get\+Transformation\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em Read the transformation matrix for getting the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. \end{DoxyCompactList}\item 
+Mat \hyperlink{classRobot_a16845345490d84f599e5b469eca208dd}{prep\+Frame} (Mat frame)
+\begin{DoxyCompactList}\small\item\em prep\+Frame \+: Pre processing of the camera frame \end{DoxyCompactList}\item 
+double \hyperlink{classRobot_a7d7c5ba1d9b83dcb6bc6413d7b89c6ff}{calculate\+Depth} (Rect bbox\+\_\+coords)
+\begin{DoxyCompactList}\small\item\em Calculate the depth of the person being detected in frame. \end{DoxyCompactList}\item 
+vector$<$ Rect $>$ \hyperlink{classRobot_a090b8f765b5d83a322576fb9d48bb14e}{transform\+To\+Robot\+Frame} (vector$<$ Rect $>$ bbox\+\_\+coords)
+\begin{DoxyCompactList}\small\item\em Convert the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. \end{DoxyCompactList}\item 
+vector$<$ Rect $>$ \hyperlink{classRobot_ab98ffeccb3b37392f4336e3a6dd14913}{detect\+Humans} (Mat frame, Net net)
+\begin{DoxyCompactList}\small\item\em Detect humans in given frame and get the location of each human in robot\textquotesingle{}s reference frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classRobot}{Robot} class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRobot_ad99a1ce9846d6334c2d9e9f52bbadce2}\label{classRobot_ad99a1ce9846d6334c2d9e9f52bbadce2}} 
+\index{Robot@{Robot}!Robot@{Robot}}
+\index{Robot@{Robot}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{Robot()}{Robot()}}
+{\footnotesize\ttfamily Robot\+::\+Robot (\begin{DoxyParamCaption}\item[{Matrix4d}]{transformation\+\_\+matrix,  }\item[{double}]{f\+\_\+length = {\ttfamily 984.251},  }\item[{double}]{p\+\_\+height\+\_\+of\+\_\+human = {\ttfamily 672} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new \hyperlink{classRobot}{Robot}\+:\+: \hyperlink{classRobot}{Robot} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em transformation\+\_\+matrix} & \+: The transformation matrix for getting the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. \\
+\hline
+{\em f\+\_\+length} & \+: Focal length of the camera being using. \\
+\hline
+{\em p\+\_\+height\+\_\+of\+\_\+human} & \+: Height of the human in pixel. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRobot_a7d7c5ba1d9b83dcb6bc6413d7b89c6ff}\label{classRobot_a7d7c5ba1d9b83dcb6bc6413d7b89c6ff}} 
+\index{Robot@{Robot}!calculate\+Depth@{calculate\+Depth}}
+\index{calculate\+Depth@{calculate\+Depth}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{calculate\+Depth()}{calculateDepth()}}
+{\footnotesize\ttfamily double Robot\+::calculate\+Depth (\begin{DoxyParamCaption}\item[{Rect}]{bbox\+\_\+coords }\end{DoxyParamCaption})}
+
+
+
+Calculate the depth of the person being detected in frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bbox\+\_\+coords} & \+: The 2D coordinates of the person being detected in frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double \+: the depth of the person being detected in frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_ab98ffeccb3b37392f4336e3a6dd14913}\label{classRobot_ab98ffeccb3b37392f4336e3a6dd14913}} 
+\index{Robot@{Robot}!detect\+Humans@{detect\+Humans}}
+\index{detect\+Humans@{detect\+Humans}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{detect\+Humans()}{detectHumans()}}
+{\footnotesize\ttfamily vector$<$ Rect $>$ Robot\+::detect\+Humans (\begin{DoxyParamCaption}\item[{Mat}]{frame,  }\item[{Net}]{net }\end{DoxyParamCaption})}
+
+
+
+Detect humans in given frame and get the location of each human in robot\textquotesingle{}s reference frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & \+: Current Camera frame \\
+\hline
+{\em net} & \+: Network for detection \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+Rect$>$ \+: Location of each human in robot\textquotesingle{}s reference frame 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_ad5b286958dbf40329f8cebdb9c9c4987}\label{classRobot_ad5b286958dbf40329f8cebdb9c9c4987}} 
+\index{Robot@{Robot}!get\+Focal\+Length@{get\+Focal\+Length}}
+\index{get\+Focal\+Length@{get\+Focal\+Length}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{get\+Focal\+Length()}{getFocalLength()}}
+{\footnotesize\ttfamily double Robot\+::get\+Focal\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the focal length defined in the A\+PI. 
+
+\begin{DoxyReturn}{Returns}
+double The focal length set in the A\+PI. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a3a1999a77bc11f070daaa0655ddff66b}\label{classRobot_a3a1999a77bc11f070daaa0655ddff66b}} 
+\index{Robot@{Robot}!get\+Shape@{get\+Shape}}
+\index{get\+Shape@{get\+Shape}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{get\+Shape()}{getShape()}}
+{\footnotesize\ttfamily vector$<$ int $>$ Robot\+::get\+Shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the size of the input used for the network. 
+
+\begin{DoxyReturn}{Returns}
+vector$<$int$>$ \+: Size of the input used for the network 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a0034f52a4daac582470860655f38f734}\label{classRobot_a0034f52a4daac582470860655f38f734}} 
+\index{Robot@{Robot}!get\+Transformation\+Matrix@{get\+Transformation\+Matrix}}
+\index{get\+Transformation\+Matrix@{get\+Transformation\+Matrix}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{get\+Transformation\+Matrix()}{getTransformationMatrix()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d Robot\+::get\+Transformation\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the transformation matrix for getting the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. 
+
+\begin{DoxyReturn}{Returns}
+Eigen\+::\+Matrix4d \+: Transformation matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a082dee8da5e4847ded0a6a1373172073}\label{classRobot_a082dee8da5e4847ded0a6a1373172073}} 
+\index{Robot@{Robot}!load\+Network@{load\+Network}}
+\index{load\+Network@{load\+Network}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{load\+Network()}{loadNetwork()}}
+{\footnotesize\ttfamily Net Robot\+::load\+Network (\begin{DoxyParamCaption}\item[{string}]{model\+\_\+config,  }\item[{string}]{model\+\_\+weights }\end{DoxyParamCaption})}
+
+
+
+Load the pre trained network using weights and configurations. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+\_\+config} & \+: Configuration file of the model used. \\
+\hline
+{\em model\+\_\+weights} & \+: Pre trained weights of the model used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Net \+: Model being used. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_a16845345490d84f599e5b469eca208dd}\label{classRobot_a16845345490d84f599e5b469eca208dd}} 
+\index{Robot@{Robot}!prep\+Frame@{prep\+Frame}}
+\index{prep\+Frame@{prep\+Frame}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{prep\+Frame()}{prepFrame()}}
+{\footnotesize\ttfamily Mat Robot\+::prep\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{frame }\end{DoxyParamCaption})}
+
+
+
+prep\+Frame \+: Pre processing of the camera frame 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & \+: Current Camera frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mat \+: processed camera frame, ready for detection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRobot_aad2cd63f57d4feaaa7ec92f49ba72d5e}\label{classRobot_aad2cd63f57d4feaaa7ec92f49ba72d5e}} 
+\index{Robot@{Robot}!set\+Focal\+Length@{set\+Focal\+Length}}
+\index{set\+Focal\+Length@{set\+Focal\+Length}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{set\+Focal\+Length()}{setFocalLength()}}
+{\footnotesize\ttfamily void Robot\+::set\+Focal\+Length (\begin{DoxyParamCaption}\item[{double}]{f }\end{DoxyParamCaption})}
+
+
+
+Set focal length of the camera being used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & Focal length of the camera being used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRobot_a2362bcfbd845f451a278b3d6af907f1f}\label{classRobot_a2362bcfbd845f451a278b3d6af907f1f}} 
+\index{Robot@{Robot}!set\+Transformation\+Matrix@{set\+Transformation\+Matrix}}
+\index{set\+Transformation\+Matrix@{set\+Transformation\+Matrix}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{set\+Transformation\+Matrix()}{setTransformationMatrix()}}
+{\footnotesize\ttfamily void Robot\+::set\+Transformation\+Matrix (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix4d}]{matrix }\end{DoxyParamCaption})}
+
+
+
+Set the transformation matrix for getting the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrix} & \+: Transformation matrix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRobot_a090b8f765b5d83a322576fb9d48bb14e}\label{classRobot_a090b8f765b5d83a322576fb9d48bb14e}} 
+\index{Robot@{Robot}!transform\+To\+Robot\+Frame@{transform\+To\+Robot\+Frame}}
+\index{transform\+To\+Robot\+Frame@{transform\+To\+Robot\+Frame}!Robot@{Robot}}
+\subsubsection{\texorpdfstring{transform\+To\+Robot\+Frame()}{transformToRobotFrame()}}
+{\footnotesize\ttfamily vector$<$ Rect $>$ Robot\+::transform\+To\+Robot\+Frame (\begin{DoxyParamCaption}\item[{vector$<$ Rect $>$}]{bbox\+\_\+coords }\end{DoxyParamCaption})}
+
+
+
+Convert the location of human detected from camera\textquotesingle{}s reference frame to robot\textquotesingle{}s reference frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bbox\+\_\+coords} & \+: location of each human in camera reference frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector$<$\+Rect$>$ \+: location of each human in robot reference frame 
+\end{DoxyReturn}
+Calculate location of point wrt robot frame using transformation matrix
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{Robot_8h}{Robot.\+h}\item 
+src/\hyperlink{Robot_8cpp}{Robot.\+cpp}\end{DoxyCompactItemize}
