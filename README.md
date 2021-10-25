@@ -1,5 +1,6 @@
 
 
+
   
 # Human_Detection_Tracking-CPP
 [![Build Status](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP.svg?branch=master)](https://app.travis-ci.com/llDev-Rootll/Human_Detection_Tracking-CPP)
@@ -35,9 +36,9 @@ The location information in the robot frame can be seen as :
 ## Project Collaterals
 The Agile Iterative Process will be used for the development of this system consisting of two sprints.
 
-The project proposal can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/development/assets/Human%20Detector%20%26%20Tracker%20-%20Proposal.pdf).
+The project proposal can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/master/assets/Human%20Detector%20%26%20Tracker%20-%20Proposal.pdf).
 
-The quad chart can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/development/assets/Quad_Chart.pdf).
+The quad chart can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/master/assets/Quad_Chart.pdf).
 
 The overall backlog table and the tables for each sprints can be found [here](https://docs.google.com/spreadsheets/d/1tjJKUd9B4bBSYAHnrwuMjWNl_lUBmqeB6lw7iTNKZSg/edit?usp=sharing).
 
@@ -66,7 +67,7 @@ The following shows the activity diagram for our proposed schema :
 
 *Fig 1 :  Activity Diagram*
 
-The corresponding class diagram can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/development/UML/revised/Revised_Class_Diagram.pdf).
+The corresponding class diagram can be found [here](https://github.com/llDev-Rootll/Human_Detection_Tracking-CPP/blob/master/UML/revised_Phase_2/Class_Diagram_Phase_2.pdf).
 
 ## Few key points in the implementation
 ### Depth estimation in monocular camera
@@ -95,7 +96,7 @@ If there are two humans detected in a frame, then we will get a vector of four R
 second human's location will be extracted from Rects positions[2] and positions[3]
 Example for location extraction of one of the coordinates of the first human:
 
-> 			x = position[0] (0) 			
+> 	  x = position[0] (0) 			
 >         y = position[0] (1) 			
 >         z = position[0] (2)
 
