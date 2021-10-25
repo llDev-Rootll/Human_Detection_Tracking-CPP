@@ -34,7 +34,7 @@ script:
   - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
   - make
   - make code_coverage
-  - test/cpp-human_detector_tracker_teststest
+  - test/human_detector_tracker_tests
 
 after_success:
   - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*" -E ".*app/main.cpp" -E ".*opencv*" 
