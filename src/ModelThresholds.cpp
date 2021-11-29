@@ -18,10 +18,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#include "ModelThresholds.h"
 
- #include "ModelThresholds.h"
-
- ModelThresholds::ModelThresholds(float conf_th, float nms_th) {
+ModelThresholds::ModelThresholds(float conf_th, float nms_th) {
     setConfidenceThreshold(conf_th);
     setNmsThreshold(nms_th);
 }
@@ -35,12 +34,10 @@ void ModelThresholds::setConfidenceThreshold(double conf_th) {
 }
 
 double ModelThresholds::getConfidenceThreshold() {
-   
     return confidence_threshold;
 }
 
 void ModelThresholds::setNmsThreshold(double nms_th) {
-    
     nms_threshold = nms_th;
     if (nms_threshold < 0) {
         throw std::invalid_argument("nms_threshold cannot be less than 0");
@@ -48,6 +45,5 @@ void ModelThresholds::setNmsThreshold(double nms_th) {
 }
 
 double ModelThresholds::getNmsThreshold() {
-   
     return nms_threshold;
 }

@@ -20,6 +20,8 @@
  * SOFTWARE.
  */
 
+#ifndef INCLUDE_MODELUTILS_H_
+#define INCLUDE_MODELUTILS_H_
 #include <vector>
 #include <string>
 #include <opencv2/dnn.hpp>
@@ -31,4 +33,5 @@ class ModelUtils {
  public:
     vector<string> getOutputsNames(const Net& net);
 };
+#endif  // INCLUDE_MODELUTILS_H_
 

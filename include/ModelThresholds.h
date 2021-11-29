@@ -1,6 +1,5 @@
-
 /**
- * Copyright (c) 2021 Aditi Ramadwar, Arunava Basu
+ * Copyright (c) 2021 Aditi Ramadwar
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
@@ -19,8 +18,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#ifndef INCLUDE_MODELTHRESHOLDS_H_
+#define INCLUDE_MODELTHRESHOLDS_H_
 #include <iostream>
-
 #include <vector>
 #include <string>
 using std::string;
@@ -56,7 +56,9 @@ class ModelThresholds {
      * @return double : Non-maximum suppression threshold
      */
     double getNmsThreshold();
-   private:
+
+ private:
     double confidence_threshold;
     double nms_threshold;
- };
+};
+#endif  // INCLUDE_MODELTHRESHOLDS_H_

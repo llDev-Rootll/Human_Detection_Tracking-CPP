@@ -33,12 +33,17 @@
 #include <cmath>
 #include "Robot.h"
 #include "gmock/gmock.h"  // Brings in gMock.
-using ::testing::Return; 
-using ::testing::AtLeast;
+using ::testing::Return;
 using::testing::_;
+
+/**
+ * @brief A mockclass for uploading the model information
+ * 
+ */
 class MockModelUtils : public ModelUtils {
  public:
     MOCK_METHOD1(getOutputsNames, vector<string>(int));
+    vector<string> mock_names = {"yolo_82", "yolo_94", "yolo_106"};
 };
 
 /**
@@ -46,18 +51,16 @@ class MockModelUtils : public ModelUtils {
  * 
  */
 TEST(HumanDetector, test_network_output_tensors) {
-MockModelUtils mockutils;
-HumanDetector test_hooman;
-
-Robot test_bot(Eigen::Matrix4d::Identity());
+  MockModelUtils mockutils;
+  HumanDetector test_hooman;
+  Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking network output tensors : " << std::endl;
   const char* path_to_model_congfiguration = "../network/yolov3.cfg";
   const char* path_to_model_weights = "../network/yolov3.weights";
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-  vector<string> mock_names = {"yolo_82","yolo_94","yolo_106"};
-  ON_CALL(mockutils, getOutputsNames(5))                  // #3
-      .WillByDefault(Return(mock_names));
+  ON_CALL(mockutils, getOutputsNames(5))
+      .WillByDefault(Return(mockutils.mock_names));
 
   static vector<string> names = test_hooman.outputsNames(mockutils, net);
   std::cout << names[0] << std::endl;

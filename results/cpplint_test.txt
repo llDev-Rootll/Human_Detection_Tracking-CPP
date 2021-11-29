@@ -1,7 +1,11 @@
 Done processing ./app/main.cpp
 Done processing ./include/HumanDetector.h
+Done processing ./include/ModelThresholds.h
+Done processing ./include/ModelUtils.h
 Done processing ./include/Robot.h
 Done processing ./src/HumanDetector.cpp
+Done processing ./src/ModelThresholds.cpp
+Done processing ./src/ModelUtils.cpp
 Done processing ./src/Robot.cpp
 Done processing ./test/HumanDetector_test.cpp
 Done processing ./test/Robot_test.cpp
