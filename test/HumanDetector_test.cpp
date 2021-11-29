@@ -35,10 +35,10 @@
 #include "gmock/gmock.h"  // Brings in gMock.
 using ::testing::Return; 
 using ::testing::AtLeast;
-
+using::testing::_;
 class MockModelUtils : public ModelUtils {
  public:
-    MOCK_METHOD1(getOutputsNames, vector<string>(const Net& net));
+    MOCK_METHOD1(getOutputsNames, vector<string>(int));
 };
 
 /**
@@ -55,12 +55,8 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   const char* path_to_model_weights = "../network/yolov3.weights";
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-    vector<string> mock_names = {"yolo_82","yolo_94","yolo_106"};
-
-// MATCHER_P(data1AreEqual, ,"") { return (net == mock_names); }
-
-
-  ON_CALL(mockutils, getOutputsNames(net))                  // #3
+  vector<string> mock_names = {"yolo_82","yolo_94","yolo_106"};
+  ON_CALL(mockutils, getOutputsNames(5))                  // #3
       .WillByDefault(Return(mock_names));
 
   static vector<string> names = test_hooman.outputsNames(mockutils, net);
@@ -196,5 +192,3 @@ TEST(HumanDetector, test_accuracy_of_detection) {
    gt_h2_x, gt_h2_y);
   EXPECT_TRUE((euclidean_distance_h2 + euclidean_distance_h1) <= 10.0);
 }
-
-
