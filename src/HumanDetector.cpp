@@ -100,7 +100,7 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
     net.setInput(blob);
     // Runs the forward pass to get output of the output layers
     vector<Mat> outs;
-    net.forward(outs, getOutputsNames(net));
+    net.forward(outs, outputNames(net));
     return outs;
 }
 
@@ -211,18 +211,10 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
  * @param net : Network to be used for detection
  * @return vector<string> : The names of output names
  */
-vector<string> HumanDetector::getOutputsNames(const Net& net) {
+vector<string> HumanDetector::outputsNames(const Net& net) {
+    ModelUtils utils;
     static vector<string> names;
-    if (names.empty()) {
-        // Get the indices of the output layers, i.e. the layers
-        // with unconnected outputs
-        vector<int> outLayers = net.getUnconnectedOutLayers();
-        // Get the names of all the layers in the network
-        vector<string> layersNames = net.getLayerNames();
-        // Get the names of the output layers in names
-        names.resize(outLayers.size());
-        for (size_t i = 0; i < outLayers.size(); ++i)
-        names[i] = layersNames[outLayers[i] - 1];
-    }
+    names = utils.getOutputsNames(net);
+
     return names;
 }

@@ -38,7 +38,7 @@
 #include <opencv2/dnn.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
-
+#include <ModelUtils.h>
 using std::vector;
 using std::string;
 using cv::Mat;
@@ -131,7 +131,7 @@ class HumanDetector {
      * @param net : Network to be used for detection
      * @return vector<string> : The names of output names
      */
-    vector<string> getOutputsNames(const Net& net);
+    vector<string> outputsNames(const Net& net);
 
  private:
     double confidence_threshold;
