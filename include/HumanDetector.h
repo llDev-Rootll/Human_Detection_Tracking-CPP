@@ -83,7 +83,7 @@ class HumanDetector {
 
     /**
      * @brief Get the Outputs Names object
-     * 
+     * @param utils : Class object for using the model information
      * @param net : Network to be used for detection
      * @return vector<string> : The names of output names
      */

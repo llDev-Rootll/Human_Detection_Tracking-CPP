@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 Aditi Ramadwar, Arunava Basu
+ * Copyright (c) 2021 Aditi Ramadwar
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
@@ -19,12 +19,11 @@
  * SOFTWARE.
  */
 /**
- * @file HumanDetector.cpp
- * @author Iteration 1 : Aditi Ramadwar (Driver) , Arunava Basu (Navigator)
- *         Iteration 2 : Arunava Basu (Navigator) , Aditi Ramadwar (Driver)
- * @brief Class for Detecting humans and getting required data
+ * @file ModelUtils.cpp
+ * @author Aditi Ramadwar
+ * @brief Class for uploading the model information
  * @version 0.1
- * @date 2021-10-14
+ * @date 2021-11-29
  * 
  * @copyright Copyright (c) 2021
  * 

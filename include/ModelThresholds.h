@@ -18,6 +18,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+/**
+ * @file ModelThresholds.h
+ * @brief Class for setting and getting the thresholds
+ * @version 0.1
+ * @date 2021-11-29
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef INCLUDE_MODELTHRESHOLDS_H_
 #define INCLUDE_MODELTHRESHOLDS_H_
 #include <iostream>
@@ -26,6 +37,10 @@
 using std::string;
 using std::vector;
 
+/**
+ * @brief A new class for the setting and getting the thresholds
+ * 
+ */
 class ModelThresholds {
  public:
     explicit ModelThresholds(float conf_th = 0.6, float nms_th = 0.4);

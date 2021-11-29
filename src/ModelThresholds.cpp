@@ -18,6 +18,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+/**
+ * @file ModelThresholds.cpp
+ * @brief Class for setting and getting the thresholds
+ * @version 0.1
+ * @date 2021-11-29
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "ModelThresholds.h"
 
 ModelThresholds::ModelThresholds(float conf_th, float nms_th) {
