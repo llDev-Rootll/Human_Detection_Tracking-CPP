@@ -65,7 +65,7 @@ class HumanDetector {
      * @return vector<Rect> : Dimensions of the bounding 
      *                        boxes for each human detected in frame.
      */
-    vector<Rect> postProcess(Mat& frame, const vector<Mat>& outs);
+    vector<Rect> postProcess(ModelThresholds thresh, Mat& frame, const vector<Mat>& outs);
 
     /**
      * @brief drawBoundingBoxes : Draws bouding boxes around each 

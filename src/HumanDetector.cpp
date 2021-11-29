@@ -66,11 +66,11 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
  * @return vector<Rect> : Dimensions of the bounding 
  *                        boxes for each human detected in frame.
  */
-vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
+vector<Rect> HumanDetector::postProcess(ModelThresholds thresh, Mat& frame,
+ const vector<Mat>& outs) {
     vector<int> classIds;
     vector<float> confidences;
     vector<Rect> boxes;
-    ModelThresholds thresh;
     for (size_t i = 0; i < outs.size(); ++i) {
         /* Scan through all the bounding boxes output from the network and keep only the
          * ones with high confidence scores. Assign the box's class label as the class

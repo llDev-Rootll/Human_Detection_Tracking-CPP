@@ -30,8 +30,15 @@
  * 
  */
 #include <gtest/gtest.h>
-#include "Robot.h"
 #include <cmath>
+#include "Robot.h"
+#include "gmock/gmock.h"  // Brings in gMock.
+using ::testing::Return;
+
+class MockModelThresholds : public ModelThresholds {
+ public:
+    MOCK_METHOD0(getConfidenceThreshold, double(void));
+};
 /**
  * @brief Test case for getOutputNames by checking the names of the network output tensors
  * 
@@ -79,7 +86,6 @@ TEST(HumanDetector, test_conf_threshold) {
 ModelThresholds thresh;
   std::cout << "Checking confidence threshold setter: "<< std::endl;
   thresh.setConfidenceThreshold(0.88);
-
   ASSERT_EQ(0.88, thresh.getConfidenceThreshold());
 }
 
@@ -110,6 +116,8 @@ TEST(HumanDetector, test_invalid_thresholds) {
  */
 TEST(HumanDetector, test_postprocess) {
 HumanDetector test_hooman;
+MockModelThresholds mockthresh;
+
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking post process functionality: "<< std::endl;
   const char* path_to_model_congfiguration = "../network/yolov3.cfg";
@@ -120,7 +128,9 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   path_to_model_weights);
   Mat blob = test_bot.prepFrame(frame);
   vector<Mat> outs = test_hooman.detection(net, blob);
-  EXPECT_EQ(1, test_hooman.postProcess(frame, outs).size());
+  ON_CALL(mockthresh, getConfidenceThreshold())
+      .WillByDefault(Return(0.6));
+  EXPECT_EQ(1, test_hooman.postProcess(mockthresh, frame, outs).size());
 }
 /**
  * @brief Helper function to calculate the L1 norm between two vectors
@@ -147,6 +157,7 @@ double euclidean_dist(double x1, double y1, double x2, double y2) {
  */
 TEST(HumanDetector, test_accuracy_of_detection) {
   HumanDetector test_hooman;
+  ModelThresholds thresh;
   Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking accuracy of detection: "<< std::endl;
   double gt_h1_x = 528.0;
@@ -161,7 +172,7 @@ TEST(HumanDetector, test_accuracy_of_detection) {
   path_to_model_weights);
   Mat blob = test_bot.prepFrame(frame);
   vector<Mat> outs = test_hooman.detection(net, blob);
-  vector<Rect> bboxes = test_hooman.postProcess(frame, outs);
+  vector<Rect> bboxes = test_hooman.postProcess(thresh, frame, outs);
   Rect h1 = bboxes[0];
   Rect h2 = bboxes[1];
   double centroid_h1_x = h1.x + h1.width/2;

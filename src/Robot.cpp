@@ -197,13 +197,14 @@ vector<Rect> Robot::detectHumans(Mat frame, Net net) {
     vector<Rect> bbox;
     vector<Mat> outs;
     vector<Rect> human_locations;
+    ModelThresholds thresh;
     human_locations.clear();
         Mat blob = prepFrame(frame);
         // Run the detection model and get the data for detected humans
         outs = hooman.detection(net, blob);
         // Apply confidence and NMS thresholding
         // Get bounding boxes dimentions and locations
-        bbox = hooman.postProcess(frame, outs);
+        bbox = hooman.postProcess(thresh, frame, outs);
         // Testing out transformation matrix
        human_locations = transformToRobotFrame(bbox);
     return human_locations;
