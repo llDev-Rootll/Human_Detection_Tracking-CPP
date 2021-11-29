@@ -42,8 +42,8 @@ int HumanDetector::human_detection_label = 0;
  * @param nms_th : NMS threshold value
  */
 HumanDetector::HumanDetector(float conf_th, float nms_th) {
-    setConfidenceThreshold(conf_th);
-    setNmsThreshold(nms_th);
+    setConfidenceThresholds(conf_th);
+    setNmsThresholds(nms_th);
 }
 
 /**
@@ -51,7 +51,8 @@ HumanDetector::HumanDetector(float conf_th, float nms_th) {
  * 
  * @param conf_th : The value of confidence threshold
  */
-void HumanDetector::setConfidenceThreshold(double conf_th) {
+void HumanDetector::setConfidenceThresholds(double conf_th) {
+    ModelThresholds threshold;
     confidence_threshold = conf_th;
     if (confidence_threshold < 0) {
         string arg = "confidence_threshold cannot be less than 0";
@@ -64,7 +65,8 @@ void HumanDetector::setConfidenceThreshold(double conf_th) {
  * 
  * @return double : Confidence threshold
  */
-double HumanDetector::getConfidenceThreshold() {
+double HumanDetector::getConfidenceThresholds() {
+    ModelThresholds threshold;
     return confidence_threshold;
 }
 
@@ -73,7 +75,8 @@ double HumanDetector::getConfidenceThreshold() {
  * 
  * @param nms_th : The value of Non-maximum suppression threshold
  */
-void HumanDetector::setNmsThreshold(double nms_th) {
+void HumanDetector::setNmsThresholds(double nms_th) {
+    ModelThresholds threshold;
     nms_threshold = nms_th;
     if (nms_threshold < 0) {
         throw std::invalid_argument("nms_threshold cannot be less than 0");
@@ -85,7 +88,8 @@ void HumanDetector::setNmsThreshold(double nms_th) {
  * 
  * @return double : Non-maximum suppression threshold
  */
-double HumanDetector::getNmsThreshold() {
+double HumanDetector::getNmsThresholds() {
+    ModelThresholds threshold;
     return nms_threshold;
 }
 
