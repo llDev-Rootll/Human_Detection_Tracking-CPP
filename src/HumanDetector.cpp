@@ -49,11 +49,11 @@ int HumanDetector::human_detection_label = 0;
  * @param blob : A 4D matrix
  * @return vector<Mat> A matrix with bounding boxes and scores
  */
-vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
+vector<Mat> HumanDetector::detection(ModelUtils utils, Net& net, Mat& blob) {
     net.setInput(blob);
     // Runs the forward pass to get output of the output layers
     vector<Mat> outs;
-    net.forward(outs, outputsNames(net));
+    net.forward(outs, outputsNames(utils, net));
     return outs;
 }
 
@@ -165,8 +165,7 @@ int HumanDetector::drawBoundingBoxes(double confidence, int left, int top,
  * @param net : Network to be used for detection
  * @return vector<string> : The names of output names
  */
-vector<string> HumanDetector::outputsNames(const Net& net) {
-    ModelUtils utils;
+vector<string> HumanDetector::outputsNames(ModelUtils utils, const Net& net) {
     static vector<string> names;
     names = utils.getOutputsNames(net);
 

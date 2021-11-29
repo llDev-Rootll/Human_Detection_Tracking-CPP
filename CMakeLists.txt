@@ -36,4 +36,4 @@ add_subdirectory(app)
 add_subdirectory(src)
 add_subdirectory(test)
 
-add_subdirectory(vendor/googletest/googletest)
+add_subdirectory(vendor/googletest)

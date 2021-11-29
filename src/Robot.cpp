@@ -30,7 +30,6 @@
  * 
  */
 #include "Robot.h"
-
 // Define static variables
 vector<int> Robot::net_input_shape = {416, 416};
 double Robot::height_of_human = 171.45;
@@ -193,6 +192,7 @@ vector<Rect> Robot::transformToRobotFrame(vector<Rect> bbox_coords) {
  * @return vector<Rect> : Location of each human in robot's reference frame
  */
 vector<Rect> Robot::detectHumans(Mat frame, Net net) {
+    ModelUtils utils;
     HumanDetector hooman;
     vector<Rect> bbox;
     vector<Mat> outs;
@@ -200,7 +200,7 @@ vector<Rect> Robot::detectHumans(Mat frame, Net net) {
     human_locations.clear();
         Mat blob = prepFrame(frame);
         // Run the detection model and get the data for detected humans
-        outs = hooman.detection(net, blob);
+        outs = hooman.detection(utils, net, blob);
         // Apply confidence and NMS thresholding
         // Get bounding boxes dimentions and locations
         bbox = hooman.postProcess(frame, outs);

@@ -30,21 +30,40 @@
  * 
  */
 #include <gtest/gtest.h>
-#include "Robot.h"
 #include <cmath>
+#include "Robot.h"
+#include "gmock/gmock.h"  // Brings in gMock.
+using ::testing::Return; 
+using ::testing::AtLeast;
+
+class MockModelUtils : public ModelUtils {
+ public:
+    MOCK_METHOD1(getOutputsNames, vector<string>(const Net& net));
+};
+
 /**
  * @brief Test case for getOutputNames by checking the names of the network output tensors
  * 
  */
 TEST(HumanDetector, test_network_output_tensors) {
+MockModelUtils mockutils;
 HumanDetector test_hooman;
+
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking network output tensors : " << std::endl;
   const char* path_to_model_congfiguration = "../network/yolov3.cfg";
   const char* path_to_model_weights = "../network/yolov3.weights";
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-  static vector<string> names = test_hooman.outputsNames(net);
+    vector<string> mock_names = {"yolo_82","yolo_94","yolo_106"};
+
+// MATCHER_P(data1AreEqual, ,"") { return (net == mock_names); }
+
+
+  ON_CALL(mockutils, getOutputsNames(net))                  // #3
+      .WillByDefault(Return(mock_names));
+
+  static vector<string> names = test_hooman.outputsNames(mockutils, net);
   std::cout << names[0] << std::endl;
   EXPECT_EQ("yolo_82", names[0]);
   EXPECT_EQ("yolo_94", names[1]);
@@ -56,6 +75,7 @@ Robot test_bot(Eigen::Matrix4d::Identity());
  * checks the dimensions of the network output.
  */
 TEST(HumanDetector, test_detection) {
+  MockModelUtils mockutils;
   HumanDetector test_hooman;
   Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking detection functionality: "<< std::endl;
@@ -66,7 +86,7 @@ TEST(HumanDetector, test_detection) {
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
   Mat blob = test_bot.prepFrame(frame);
-  vector<Mat> outs = test_hooman.detection(net, blob);
+  vector<Mat> outs = test_hooman.detection(mockutils, net, blob);
   EXPECT_EQ(3, outs.size());
   EXPECT_EQ(507, outs[0].rows);
   EXPECT_EQ(85, outs[1].cols);
@@ -109,6 +129,7 @@ TEST(HumanDetector, test_invalid_thresholds) {
  * @brief Test case for checking postprocess methods by checking the number of humans detected
  */
 TEST(HumanDetector, test_postprocess) {
+MockModelUtils mockutils;
 HumanDetector test_hooman;
 Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking post process functionality: "<< std::endl;
@@ -119,7 +140,7 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
   Mat blob = test_bot.prepFrame(frame);
-  vector<Mat> outs = test_hooman.detection(net, blob);
+  vector<Mat> outs = test_hooman.detection(mockutils, net, blob);
   EXPECT_EQ(1, test_hooman.postProcess(frame, outs).size());
 }
 /**
@@ -147,6 +168,7 @@ double euclidean_dist(double x1, double y1, double x2, double y2) {
  */
 TEST(HumanDetector, test_accuracy_of_detection) {
   HumanDetector test_hooman;
+  MockModelUtils mockutils;
   Robot test_bot(Eigen::Matrix4d::Identity());
   std::cout << "Checking accuracy of detection: "<< std::endl;
   double gt_h1_x = 528.0;
@@ -160,7 +182,7 @@ TEST(HumanDetector, test_accuracy_of_detection) {
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
   path_to_model_weights);
   Mat blob = test_bot.prepFrame(frame);
-  vector<Mat> outs = test_hooman.detection(net, blob);
+  vector<Mat> outs = test_hooman.detection(mockutils, net, blob);
   vector<Rect> bboxes = test_hooman.postProcess(frame, outs);
   Rect h1 = bboxes[0];
   Rect h2 = bboxes[1];

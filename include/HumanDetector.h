@@ -38,23 +38,21 @@
 #include <opencv2/dnn.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
-#include <ModelUtils.h>
 #include <ModelThresholds.h>
+#include <ModelUtils.h>
 using std::vector;
 using std::string;
 using cv::Mat;
 using cv::dnn::Net;
 using cv::Rect;
 using cv::Size;
-
 /**
  * @brief HumanDetector Class
  * A class for human detection and drawing bounding boxes 
  */
 class HumanDetector {
  public:
-    
-    vector<Mat> detection(Net& net,  Mat& blob);
+    vector<Mat> detection(ModelUtils utils, Net& net,  Mat& blob);
 
     /**
      * @brief postProcess : Performs confidence thresholding and
@@ -89,10 +87,9 @@ class HumanDetector {
      * @param net : Network to be used for detection
      * @return vector<string> : The names of output names
      */
-    vector<string> outputsNames(const Net& net);
+    vector<string> outputsNames(ModelUtils utils, const Net& net);
 
  private:
-    
     static int human_detection_label;
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_
