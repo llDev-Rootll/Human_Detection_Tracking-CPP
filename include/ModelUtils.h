@@ -22,7 +22,10 @@
 
 #include <vector>
 #include <string>
-
+#include <opencv2/dnn.hpp>
+using std::string;
+using cv::dnn::Net;
+using std::vector;
 
 class ModelUtils {
  public:

@@ -44,7 +44,8 @@ Robot test_bot(Eigen::Matrix4d::Identity());
   const char* path_to_model_weights = "../network/yolov3.weights";
   Net net = test_bot.loadNetwork(path_to_model_congfiguration,
     path_to_model_weights);
-  static vector<string> names = test_hooman.getOutputsNames(net);
+  static vector<string> names = test_hooman.outputsNames(net);
+  std::cout << names[0] << std::endl;
   EXPECT_EQ("yolo_82", names[0]);
   EXPECT_EQ("yolo_94", names[1]);
   EXPECT_EQ("yolo_106", names[2]);

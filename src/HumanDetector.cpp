@@ -100,7 +100,7 @@ vector<Mat> HumanDetector::detection(Net& net, Mat& blob) {
     net.setInput(blob);
     // Runs the forward pass to get output of the output layers
     vector<Mat> outs;
-    net.forward(outs, outputNames(net));
+    net.forward(outs, outputsNames(net));
     return outs;
 }
 

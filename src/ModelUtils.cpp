@@ -31,9 +31,6 @@
  */
 #include "ModelUtils.h"
 
-ModelUtils::ModelUtils() {
-}
-
 /**
  * @brief Get the Outputs Names object
  * 
