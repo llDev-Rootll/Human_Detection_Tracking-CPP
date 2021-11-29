@@ -1,4 +1,3 @@
-
 /**
  * Copyright (c) 2021 Aditi Ramadwar, Arunava Basu
  *
@@ -19,44 +18,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include <iostream>
 
-#include <vector>
-#include <string>
-using std::string;
-using std::vector;
+ #include "ModelThresholds.h"
 
-class ModelThresholds {
- public:
-    explicit ModelThresholds(float conf_th = 0.6, float nms_th = 0.4);
-   /**
-     * @brief Set confidence threshold for detection of humans
-     * 
-     * @param conf_th : The value of confidence threshold
-     */
-    void setConfidenceThreshold(double conf_th);
+ ModelThresholds::ModelThresholds(float conf_th, float nms_th) {
+    setConfidenceThreshold(conf_th);
+    setNmsThreshold(nms_th);
+}
 
-    /**
-     * @brief Read the confidence threshold set in the API
-     * 
-     * @return double : Confidence threshold
-     */
-    double getConfidenceThreshold();
+void ModelThresholds::setConfidenceThreshold(double conf_th) {
+    confidence_threshold = conf_th;
+    if (confidence_threshold < 0) {
+        string arg = "confidence_threshold cannot be less than 0";
+        throw std::invalid_argument(arg);
+    }
+}
 
-    /**
-     * @brief Set Non-maximum suppression threshold for detection of humans
-     * 
-     * @param nms_th : The value of Non-maximum suppression threshold
-     */
-    void setNmsThreshold(double nms_th);
+double ModelThresholds::getConfidenceThreshold() {
+   
+    return confidence_threshold;
+}
 
-    /**
-     * @brief Read the Non-maximum suppression threshold set in the API
-     * 
-     * @return double : Non-maximum suppression threshold
-     */
-    double getNmsThreshold();
-   private:
-    double confidence_threshold;
-    double nms_threshold;
- };
+void ModelThresholds::setNmsThreshold(double nms_th) {
+    
+    nms_threshold = nms_th;
+    if (nms_threshold < 0) {
+        throw std::invalid_argument("nms_threshold cannot be less than 0");
+    }
+}
+
+double ModelThresholds::getNmsThreshold() {
+   
+    return nms_threshold;
+}

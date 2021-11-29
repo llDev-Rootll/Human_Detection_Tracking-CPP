@@ -41,57 +41,6 @@ int HumanDetector::human_detection_label = 0;
  * @param conf_th : Confidence threshold value
  * @param nms_th : NMS threshold value
  */
-HumanDetector::HumanDetector(float conf_th, float nms_th) {
-    setConfidenceThresholds(conf_th);
-    setNmsThresholds(nms_th);
-}
-
-/**
- * @brief Set confidence threshold for detection of humans
- * 
- * @param conf_th : The value of confidence threshold
- */
-void HumanDetector::setConfidenceThresholds(double conf_th) {
-    ModelThresholds threshold;
-    confidence_threshold = conf_th;
-    if (confidence_threshold < 0) {
-        string arg = "confidence_threshold cannot be less than 0";
-        throw std::invalid_argument(arg);
-    }
-}
-
-/**
- * @brief Read the confidence threshold set in the API
- * 
- * @return double : Confidence threshold
- */
-double HumanDetector::getConfidenceThresholds() {
-    ModelThresholds threshold;
-    return confidence_threshold;
-}
-
-/**
- * @brief Set Non-maximum suppression threshold for detection of humans
- * 
- * @param nms_th : The value of Non-maximum suppression threshold
- */
-void HumanDetector::setNmsThresholds(double nms_th) {
-    ModelThresholds threshold;
-    nms_threshold = nms_th;
-    if (nms_threshold < 0) {
-        throw std::invalid_argument("nms_threshold cannot be less than 0");
-    }
-}
-
-/**
- * @brief Read the Non-maximum suppression threshold set in the API
- * 
- * @return double : Non-maximum suppression threshold
- */
-double HumanDetector::getNmsThresholds() {
-    ModelThresholds threshold;
-    return nms_threshold;
-}
 
 /**
  * @brief detection : Runs the neural network to detect humans.
@@ -121,7 +70,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
     vector<int> classIds;
     vector<float> confidences;
     vector<Rect> boxes;
-    ModelThreshold thresh;
+    ModelThresholds thresh;
     for (size_t i = 0; i < outs.size(); ++i) {
         /* Scan through all the bounding boxes output from the network and keep only the
          * ones with high confidence scores. Assign the box's class label as the class

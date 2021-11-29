@@ -76,22 +76,22 @@ TEST(HumanDetector, test_detection) {
  * @brief Test cases for setter and getter of confidence threshold
  */
 TEST(HumanDetector, test_conf_threshold) {
-HumanDetector test_hooman;
+ModelThresholds thresh;
   std::cout << "Checking confidence threshold setter: "<< std::endl;
-  test_hooman.setConfidenceThresholds(0.88);
+  thresh.setConfidenceThreshold(0.88);
 
-  ASSERT_EQ(0.88, test_hooman.getConfidenceThresholds());
+  ASSERT_EQ(0.88, thresh.getConfidenceThreshold());
 }
 
 /**
  * @brief Test cases for setter and getter of NMS threshold
  */
 TEST(HumanDetector, test_nms_threshold) {
-HumanDetector test_hooman;
+ModelThresholds thresh;
   std::cout << "Checking nms threshold setter: "<< std::endl;
-  test_hooman.setNmsThresholds(0.99);
+  thresh.setNmsThreshold(0.99);
 
-  ASSERT_EQ(0.99, test_hooman.getNmsThresholds());
+  ASSERT_EQ(0.99, thresh.getNmsThreshold());
 }
 
 /**
@@ -99,9 +99,9 @@ HumanDetector test_hooman;
  */
 TEST(HumanDetector, test_invalid_thresholds) {
   std::cout << "Checking invalid theshold exception catches: "<< std::endl;
-  HumanDetector invalid_thresh;
-  EXPECT_THROW(invalid_thresh.setNmsThresholds(-0.99), std::invalid_argument);
-  EXPECT_THROW(invalid_thresh.setConfidenceThresholds(-0.88),
+  ModelThresholds thresh;
+  EXPECT_THROW(thresh.setNmsThreshold(-0.99), std::invalid_argument);
+  EXPECT_THROW(thresh.setConfidenceThreshold(-0.88),
    std::invalid_argument);
 }
 

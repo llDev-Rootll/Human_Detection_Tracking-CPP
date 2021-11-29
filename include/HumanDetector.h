@@ -53,50 +53,7 @@ using cv::Size;
  */
 class HumanDetector {
  public:
-    /**
-     * @brief Construct a new Human Detector:: Human Detector object
-     *        Set the thresholds for detection
-     * 
-     * @param conf_th : Confidence threshold value
-     * @param nms_th : NMS threshold value
-     */
-    explicit HumanDetector(float conf_th = 0.6, float nms_th = 0.4);
-
-    /**
-     * @brief Set confidence threshold for detection of humans
-     * 
-     * @param conf_th : The value of confidence threshold
-     */
-    void setConfidenceThresholds(double conf_th);
-
-    /**
-     * @brief Read the confidence threshold set in the API
-     * 
-     * @return double : Confidence threshold
-     */
-    double getConfidenceThresholds();
-
-    /**
-     * @brief Set Non-maximum suppression threshold for detection of humans
-     * 
-     * @param nms_th : The value of Non-maximum suppression threshold
-     */
-    void setNmsThresholds(double nms_th);
-
-    /**
-     * @brief Read the Non-maximum suppression threshold set in the API
-     * 
-     * @return double : Non-maximum suppression threshold
-     */
-    double getNmsThresholds();
-
-    /**
-     * @brief detection : Runs the neural network to detect humans.
-     * 
-     * @param net : DNN network object
-     * @param blob : A 4D matrix
-     * @return vector<Mat> A matrix with bounding boxes and scores
-     */
+    
     vector<Mat> detection(Net& net,  Mat& blob);
 
     /**
@@ -135,8 +92,7 @@ class HumanDetector {
     vector<string> outputsNames(const Net& net);
 
  private:
-    double confidence_threshold;
-    double nms_threshold;
+    
     static int human_detection_label;
 };
 #endif  // INCLUDE_HUMANDETECTOR_H_
