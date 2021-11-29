@@ -117,6 +117,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
     vector<int> classIds;
     vector<float> confidences;
     vector<Rect> boxes;
+    ModelThreshold thresh;
     for (size_t i = 0; i < outs.size(); ++i) {
         /* Scan through all the bounding boxes output from the network and keep only the
          * ones with high confidence scores. Assign the box's class label as the class
@@ -130,7 +131,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
             // Get the value and location of the maximum score
             cv::minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
             // Do confidence thresholding
-            if (confidence > confidence_threshold) {
+            if (confidence > thresh.getConfidenceThreshold()) {
                 if (classIdPoint.x == 0) {
                     int centerX = static_cast<int>(data[0] * frame.cols);
                     int centerY = static_cast<int>(data[1] * frame.rows);
@@ -150,7 +151,7 @@ vector<Rect> HumanDetector::postProcess(Mat& frame, const vector<Mat>& outs) {
      */
     vector<int> indices;
     cv::dnn::NMSBoxes(boxes, confidences,
-        confidence_threshold, nms_threshold, indices);
+        thresh.getConfidenceThreshold(), thresh.getNmsThreshold(), indices);
     // Draw bounding boxes and give labels
         vector<Rect> bboxes;
         bboxes.clear();
