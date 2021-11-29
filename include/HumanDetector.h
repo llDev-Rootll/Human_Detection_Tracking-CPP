@@ -39,6 +39,7 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <ModelUtils.h>
+#include <ModelThresholds.h>
 using std::vector;
 using std::string;
 using cv::Mat;
@@ -66,28 +67,28 @@ class HumanDetector {
      * 
      * @param conf_th : The value of confidence threshold
      */
-    void setConfidenceThreshold(double conf_th);
+    void setConfidenceThresholds(double conf_th);
 
     /**
      * @brief Read the confidence threshold set in the API
      * 
      * @return double : Confidence threshold
      */
-    double getConfidenceThreshold();
+    double getConfidenceThresholds();
 
     /**
      * @brief Set Non-maximum suppression threshold for detection of humans
      * 
      * @param nms_th : The value of Non-maximum suppression threshold
      */
-    void setNmsThreshold(double nms_th);
+    void setNmsThresholds(double nms_th);
 
     /**
      * @brief Read the Non-maximum suppression threshold set in the API
      * 
      * @return double : Non-maximum suppression threshold
      */
-    double getNmsThreshold();
+    double getNmsThresholds();
 
     /**
      * @brief detection : Runs the neural network to detect humans.
