@@ -19,7 +19,7 @@ if (COVERAGE)
     include(CodeCoverage)
     set(LCOV_REMOVE_EXTRA "'vendor/*'")
     setup_target_for_coverage(code_coverage test/human_detector_tracker_tests coverage)
-    set(COVERAGE_SRCS src/Robot.cpp src/HumanDetector.cpp include/Humandetector.h include/Rohot.h)
+    set(COVERAGE_SRCS src/Robot.cpp src/HumanDetector.cpp src/ModelUtils.cpp include/Humandetector.h include/Rohot.h include/ModelUtils.h )
 
     SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
     SET(CMAKE_C_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
